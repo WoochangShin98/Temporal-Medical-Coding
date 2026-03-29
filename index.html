@@ -1,659 +1,251 @@
 <!DOCTYPE html>
-<html lang="en-US">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- saved from url=(0014)about:internet -->
+<html lang=" en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NLP Class Project | Spring 2026 CSCI 5541 | University of Minnesota</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./files/bulma.min.css" />
 
-  <style>
-    :root {
-      --bg: #f6f8fc;
-      --surface: #ffffff;
-      --surface-soft: #fbfcfe;
-      --text: #0f172a;
-      --muted: #475569;
-      --line: #dbe4f0;
-      --line-strong: #c6d3e6;
-      --primary: #163a70;
-      --primary-soft: #eaf1fb;
-      --shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
-      --shadow-soft: 0 4px 10px rgba(15, 23, 42, 0.03);
-      --radius: 14px;
-      --max-width: 980px;
-    }
+  <link rel="stylesheet" href="./files/styles.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com/">
+  <link href="./files/css2" rel="stylesheet">
+  <link href="./files/css" rel="stylesheet">
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
 
-    body {
-      margin: 0;
-      font-family: "Inter", sans-serif;
-      color: var(--text);
-      background:
-        linear-gradient(to bottom, #f8fbff 0%, #f6f8fc 220px, #f6f8fc 100%);
-    }
+  <base href="." target="_blank"></head>
 
-    a { text-decoration: none; color: inherit; }
-    img { display: block; max-width: 100%; }
 
-    .wrapper {
-      width: min(calc(100% - 2rem), var(--max-width));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(219, 228, 240, 0.9);
-    }
-
-    .topbar-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 12px 0;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 600;
-      color: var(--text);
-      white-space: nowrap;
-    }
-
-    .brand-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 9px;
-      display: grid;
-      place-items: center;
-      background: var(--primary);
-      color: #fff;
-      font-size: 0.86rem;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .topnav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      justify-content: flex-end;
-    }
-
-    .topnav a {
-      color: var(--muted);
-      font-size: 0.95rem;
-      padding: 4px 0;
-      border-bottom: 2px solid transparent;
-      transition: color 0.2s ease, border-color 0.2s ease;
-    }
-
-    .topnav a:hover,
-    .topnav a:focus-visible {
-      color: var(--primary);
-      border-color: var(--primary);
-      outline: none;
-    }
-
-    .hero-shell {
-      padding: 44px 0 22px;
-      text-align: center;
-    }
-
-    .eyebrow {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-bottom: 10px;
-      text-align: center;
-      display: block;
-    }
-
-    h1, h2, h3, h4 { margin-top: 0; }
-
-    h1 {
-      font-family: "Source Serif 4", serif;
-      font-size: clamp(2.6rem, 5vw, 3.8rem);
-      line-height: 1.08;
-      margin-bottom: 8px;
-      color: var(--text);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .hero-subtitle {
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.75;
-      margin: 0;
-      text-align: center;
-      display: block;
-    }
-
-    .hero-rule {
-      width: 120px;
-      height: 3px;
-      margin: 20px auto 0;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(22,58,112,0.15), rgba(22,58,112,0.65), rgba(22,58,112,0.15));
-    }
-
-    .authors-panel {
-      margin-top: 28px;
-    }
-
-    .project-name {
-      font-size: 1rem;
-      color: var(--text);
-      margin-bottom: 14px;
-      font-weight: 600;
-      text-align: center;
-    }
-
-    .authors-wrapper {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .author-container {
-      text-align: center;
-      padding: 16px 12px;
-      border-radius: 12px;
-      background: var(--surface);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-    }
-
-    .author-container:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
-      border-color: var(--line-strong);
-    }
-
-    .author-image {
-      width: 74px;
-      height: 74px;
-      margin: 0 auto 10px;
-      border-radius: 50%;
-      padding: 2px;
-      background: #e2e8f0;
-      overflow: hidden;
-    }
-
-    .author-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      background: #f8fafc;
-    }
-
-    .author-image img[src=""],
-    .author-image img:not([src]) {
-      opacity: 0;
-    }
-
-    .author-image:has(img[src=""]),
-    .author-image:has(img:not([src])) {
-      position: relative;
-      background: #e2e8f0;
-    }
-
-    .author-image:has(img[src=""])::before,
-    .author-image:has(img:not([src]))::before {
-      content: "";
-      position: absolute;
-      inset: 2px;
-      border-radius: 50%;
-      background: #f8fafc;
-    }
-
-    .author-image:has(img[src=""])::after,
-    .author-image:has(img:not([src]))::after {
-      content: attr(data-initials);
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      color: var(--primary);
-      font-weight: 600;
-      font-size: 1rem;
-      z-index: 1;
-    }
-
-    .author-container p {
-      margin: 0;
-      color: var(--text);
-      line-height: 1.45;
-      font-size: 0.95rem;
-      text-align: center;
-    }
-
-    hr {
-      border: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--line), transparent);
-      margin: 30px 0;
-    }
-
-    .content-card {
-      scroll-margin-top: 88px;
-      padding: 26px;
-      margin-bottom: 18px;
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
-    }
-
-    h2 {
-      font-family: "Source Serif 4", serif;
-      font-size: clamp(1.7rem, 3vw, 2.25rem);
-      margin-bottom: 14px;
-      text-align: center;
-      color: var(--text);
-      font-weight: 700;
-    }
-
-    .section-rule {
-      width: 64px;
-      height: 2px;
-      margin: -2px auto 18px;
-      background: var(--line-strong);
-      border-radius: 999px;
-    }
-
-    h3 {
-      font-size: 1.08rem;
-      margin-bottom: 10px;
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    p {
-      color: var(--muted);
-      line-height: 1.78;
-      font-size: 1rem;
-      text-align: left;
-      margin-top: 0;
-    }
-
-    .lead-grid,
-    .metric-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
-    .metric-card,
-    .summary-item,
-    .figure-card {
-      background: var(--surface-soft);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-    }
-
-    .metric-card {
-      padding: 16px;
-    }
-
-    .metric-card strong {
-      display: block;
-      color: var(--primary);
-      font-size: 1.04rem;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      align-items: start;
-    }
-
-    .question {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .figure-card {
-      padding: 14px;
-    }
-
-    .sys-img {
-      margin: 0;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background: #fff;
-    }
-
-    .sys-img img {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-    }
-
-    .figure-caption {
-      margin-top: 12px;
-      color: var(--muted);
-      font-size: 0.96rem;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 16px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    th, td {
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--line);
-      text-align: center;
-      color: var(--muted);
-      vertical-align: top;
-    }
-
-    th {
-      color: var(--text);
-      background: #f8fafc;
-      font-weight: 600;
-    }
-
-    caption {
-      caption-side: bottom;
-      color: var(--muted);
-      padding-top: 10px;
-      font-size: 0.94rem;
-    }
-
-    .results-visual {
-      margin-top: 20px;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background: #fff;
-    }
-
-    .results-visual img {
-      width: 100%;
-      aspect-ratio: 16 / 7;
-      object-fit: cover;
-    }
-
-    .summary-list {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .summary-item {
-      padding: 18px;
-    }
-
-    .summary-item h3 {
-      text-align: center;
-      margin-bottom: 8px;
-    }
-
-    .summary-item p {
-      margin-bottom: 0;
-    }
-
-    @media (max-width: 980px) {
-      .authors-wrapper,
-      .summary-list {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .two-col {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .topbar {
-        position: static;
-      }
-
-      .topnav {
-        display: none;
-      }
-
-      .authors-wrapper,
-      .summary-list,
-      .two-col {
-        grid-template-columns: 1fr;
-      }
-
-      .content-card {
-        padding: 20px;
-      }
-
-      h1 {
-        font-size: 2.3rem;
-      }
-    }
-  </style>
-</head>
 <body>
-  <nav class="topbar">
-    <div class="wrapper topbar-inner">
-      <div class="brand">
-        <div class="brand-mark">SO</div>
-        <span>Stack OverFlowers</span>
-      </div>
-      <div class="topnav">
-        <a href="#abstract">Abstract</a>
-        <a href="#teaser">Teaser Figure</a>
-        <a href="#introduction">Introduction</a>
-        <a href="#approach">Approach</a>
-        <a href="#results">Results</a>
-        <a href="#conclusion">Conclusion</a>
-      </div>
-    </div>
-  </nav>
+  <div>
+    <div class="wrapper">
+      <h1 style="font-family: &#39;Lato&#39;, sans-serif;">Your Title Here</h1>
+      <h4 style="font-family: &#39;Lato&#39;, sans-serif; ">Spring 2026 CSCI 5541 NLP: Class Project - University of Minnesota</h4>
+      <h4 style="font-family: &#39;Lato&#39;, sans-serif; ">Stack OverFlowers</h4>
 
-  <div class="wrapper hero-shell">
-    <div class="eyebrow">Spring 2026 · CSCI 5541 NLP · University of Minnesota</div>
-    <h1>Your Title Here</h1>
-    <p class="hero-subtitle">Spring 2026 CSCI 5541 NLP: Class Project - University of Minnesota</p>
-    <div class="hero-rule"></div>
-
-    <div class="authors-panel">
-      <div class="project-name">Stack OverFlowers</div>
       <div class="authors-wrapper">
+        
         <div class="author-container">
-          <div class="author-image" data-initials="WS">
-            <img src="./files/WoochangShin.jpg" alt="Woochang Shin">
+          <div class="author-image">
+              <img src="./files/WoochangShin.jpg">
+            
+            
           </div>
-          <p>Woochang Shin</p>
+          <p>
+                        
+              Woochang Shin
+            
+          </p>
         </div>
-
+        
         <div class="author-container">
-          <div class="author-image" data-initials="JK">
-            <img src="" alt="Jisun Kim">
+          <div class="author-image">
+            
+            <img src="">
+            
           </div>
-          <p>Jisun Kim</p>
+          <p>
+            
+            Jisun Kim
+            
+          </p>
         </div>
-
+        
         <div class="author-container">
-          <div class="author-image" data-initials="SH">
-            <img src="" alt="Steven Hu">
+          <div class="author-image">
+            
+              <img src="">            
+            
           </div>
-          <p>Steven Hu</p>
+          <p>
+              Steven Hu
+          </p>
         </div>
-
+        
         <div class="author-container">
-          <div class="author-image" data-initials="SS">
-            <img src="./files/SamarthKumarSamal(SAM).png" alt="Samarth Kumar Samal">
+          <div class="author-image">
+                        
+              <img src="">
+            
           </div>
-          <p>Samarth Kumar Samal</p>
+          <p>
+            Samarth Kumar Samal
+          </p>
+        </div>
+        
+      </div>
+
+      <br/>
+
+      <div class="authors-wrapper">
+        <div class="publication-links">
+          <!-- Github link -->
+          <span class="link-block">
+            <a
+              href=""
+              target="_blank"
+              class="external-link button is-normal is-rounded is-dark is-outlined"
+            >
+            <span>Final Report</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a
+              href=""
+              target="_blank"
+              class="external-link button is-normal is-rounded is-dark is-outlined"
+            >
+            <span>Code</span>
+            </a>
+          </span>      
+          <span class="link-block">
+            <a
+              href=""
+              target="_blank"
+              class="external-link button is-normal is-rounded is-dark is-outlined"
+            >
+            <span>Model Weights</span>
+            </a>
+          </span>              
         </div>
       </div>
+
+
     </div>
   </div>
+
+
+
+
+
+  
+  
+
 
   <div class="wrapper">
     <hr>
+    
+    <h2 id="abstract">Abstract</h2>
 
-    <section id="abstract" class="content-card">
-      <h2>Abstract</h2>
-      <div class="section-rule"></div>
-      <div class="lead-grid">
-        <div>
-          <p>
-            One or two sentences on the motivation behind the problem you are solving. One or two sentences describing the approach you took. One or two sentences on the main result you obtained.
-          </p>
-        </div>
-        <div class="metric-grid">
-          <div class="metric-card">
-            <strong>Task</strong>
-            <p>Briefly name the core problem.</p>
-          </div>
-          <div class="metric-card">
-            <strong>Method</strong>
-            <p>State the approach or model.</p>
-          </div>
-          <div class="metric-card">
-            <strong>Result</strong>
-            <p>Highlight the key outcome.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+<p>One or two sentences on the motivation behind the problem you are solving. One or two sentences describing the approach you took. One or two sentences on the main result you obtained.</p>
 
-    <hr>
+<hr>
 
-    <section id="teaser" class="content-card">
-      <h2>Teaser Figure</h2>
-      <div class="section-rule"></div>
-      <p>
-        A figure that conveys the main idea behind the project or the main application being addressed. This figure is from <a href="https://arxiv.org/pdf/2210.07469" style="color: var(--primary); text-decoration: underline; text-underline-offset: 2px;">StyLEx</a>.
-      </p>
-      <div class="figure-card">
-        <p class="sys-img"><img src="./files/teaser.png" alt="Teaser figure"></p>
-        <p class="figure-caption">Use this caption area to explain the core intuition behind your figure in one concise statement.</p>
-      </div>
+<h2 id="teaser">Teaser Figure</h2>
 
-      <h3 id="the-timeline-and-the-highlights">Any subsection</h3>
-      <p>If you need to explain more about your figure.</p>
-    </section>
+<p>A figure that conveys the main idea behind the project or the main application being addressed. This figure is from <a href="https://arxiv.org/pdf/2210.07469">StyLEx</a>.</p>
 
-    <hr>
+<p class="sys-img"><img src="./files/teaser.png" alt="imgname"></p>
 
-    <section id="introduction" class="content-card">
-      <h2>Introduction / Background / Motivation</h2>
-      <div class="section-rule"></div>
-      <div class="two-col">
-        <div>
-          <p class="question">What did you try to do? What problem did you try to solve? Articulate your objectives using absolutely no jargon.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
-          <p class="question">How is it done today, and what are the limits of current practice?</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </div>
-        <div>
-          <p class="question">Who cares? If you are successful, what difference will it make?</p>
-          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-        </div>
-      </div>
-    </section>
+<h3 id="the-timeline-and-the-highlights">Any subsection</h3>
 
-    <hr>
+<p>If you need to explain more about your figure</p>
 
-    <section id="approach" class="content-card">
-      <h2>Approach</h2>
-      <div class="section-rule"></div>
-      <div class="two-col">
-        <div>
-          <p class="question">What did you do exactly? How did you solve the problem? Why did you think it would be successful? Is anything new in your approach?</p>
-          <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        </div>
-        <div>
-          <p class="question">What problems did you anticipate? What problems did you encounter? Did the very first thing you tried work?</p>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-        </div>
-      </div>
-    </section>
+<hr>
 
-    <hr>
+<h2 id="introduction">Introduction / Background / Motivation</h2>
 
-    <section id="results" class="content-card">
-      <h2>Results</h2>
-      <div class="section-rule"></div>
-      <p class="question">How did you measure success? What experiments were used? What were the results, both quantitative and qualitative? Did you succeed? Did you fail? Why?</p>
-      <p>
-        Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-      </p>
+<p>
+<b>What did you try to do? What problem did you try to solve? Articulate your objectives using absolutely no jargon.</b>
+</p>
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</p>
 
-      <table>
-        <thead>
-          <tr>
-            <th><strong>Experiment</strong></th>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Sentence</strong></td>
-            <td>Example 1</td>
-            <td>Example 2</td>
-            <td>Example 3</td>
-          </tr>
-          <tr>
-            <td><strong>Errors</strong></td>
-            <td>error A, error B, error C</td>
-            <td>error C</td>
-            <td>error B</td>
-          </tr>
-        </tbody>
-        <caption>Table 1. This is Table 1's caption</caption>
-      </table>
+<p>
+<b>How is it done today, and what are the limits of current practice?</b>
+</p>
+<p>
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+<p>
 
-      <div class="results-visual">
-        <img src="./files/results.png" alt="Results figure">
-      </div>
-    </section>
+<p>
+<b>Who cares? If you are successful, what difference will it make?</b>
+</p>
+<p>
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</p>
 
-    <hr>
+<hr>
 
-    <section id="conclusion" class="content-card">
-      <h2>Conclusion and Future Work</h2>
-      <div class="section-rule"></div>
-      <div class="summary-list">
-        <div class="summary-item">
-          <h3>Reproducibility</h3>
-          <p>How easily are your results able to be reproduced by others?</p>
-        </div>
-        <div class="summary-item">
-          <h3>Impact & Risk</h3>
-          <p>Does your work have potential harm or risk to society? If so, how can you address it?</p>
-        </div>
-        <div class="summary-item">
-          <h3>Limitations & Extensions</h3>
-          <p>What limitations does your model have? How can you extend your work for future research?</p>
-        </div>
-      </div>
-    </section>
+<h2 id="approach">Approach</h2>
+
+<p>
+<b>What did you do exactly? How did you solve the problem? Why did you think it would be successful? Is anything new in your approach?</b>
+</p>
+
+<p>
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+
+<p>
+<b>What problems did you anticipate? What problems did you encounter? Did the very first thing you tried work?</b>
+</p>
+
+<p>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+</p>
+
+<hr>
+    
+<h2 id="results">Results</h2>
+<p>
+<b>How did you measure success? What experiments were used? What were the results, both quantitative and qualitative? Did you succeed? Did you fail? Why?</b>
+</p>
+<p>
+Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+</p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Experiment</strong></th>
+      <th style="text-align: center">1</th>
+      <th style="text-align: center">2</th>
+      <th style="text-align: center">3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><strong>Sentence</strong></td>
+      <td style="text-align: center">Example 1</td>
+      <td style="text-align: center">Example 2</td>
+      <td style="text-align: center">Example 3</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>Errors</strong></td>
+      <td style="text-align: center">error A, error B, error C</td>
+      <td style="text-align: center">error C</td>
+      <td style="text-align: center">error B</td>
+    </tr>
+  </tbody>
+  <caption>Table 1. This is Table 1's caption</caption>
+</table>
+<br>
+<div style="text-align: center;">
+<img style="height: 300px;" alt="" src="./files/results.png">
+</div>
+<br><br>
+
+<hr>
+
+
+
+<h2 id="conclusion">Conclustion and Future Work</h2>
+<p>
+
+  How easily are your results able to be reproduced by others?
+  Did your dataset or annotation affect other people's choice of research or development projects to undertake?
+  Does your work have potential harm or risk to our society? What kinds? If so, how can you address them?
+  What limitations does your model have? How can you extend your work for future research?</p>
+
+
+<hr>
+
+
   </div>
-</body>
-</html>
+  
+
+
+</body></html>
