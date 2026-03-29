@@ -1,0 +1,8 @@
+Metric,Training,Validation,Testing
+Loss,0.9031,0.9155,0.9013
+Accuracy,0.8002,0.797,0.8002
+Micro F1,0.8002,0.797,0.8002
+Macro F1,0.524,0.5764,0.5839
+Precision@1,0.8001,0.7969,0.8003
+Precision@3,0.8818,0.8789,0.8818
+Precision@5,0.9065,0.904,0.9075

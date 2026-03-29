@@ -1,0 +1,23 @@
+{
+    "Training Loss": 0.7719,
+    "Training Accuracy": 0.8213,
+    "Training Micro F1": 0.8213,
+    "Training Macro F1": 0.5851,
+    "Training Precision@1": 0.8214,
+    "Training Precision@3": 0.9005,
+    "Training Precision@5": 0.9231,
+    "Validation Loss": 0.7877,
+    "Validation Accuracy": 0.8185,
+    "Validation Micro F1": 0.8185,
+    "Validation Macro F1": 0.6314,
+    "Validation Precision@1": 0.8187,
+    "Validation Precision@3": 0.8962,
+    "Validation Precision@5": 0.919,
+    "Testing Loss": 0.7638,
+    "Testing Accuracy": 0.8227,
+    "Testing Micro F1": 0.8227,
+    "Testing Macro F1": 0.6429,
+    "Testing Precision@1": 0.8227,
+    "Testing Precision@3": 0.9028,
+    "Testing Precision@5": 0.9245
+}
