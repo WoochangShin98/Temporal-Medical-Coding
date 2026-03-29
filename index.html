@@ -8,24 +8,23 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #07111f;
-      --bg-soft: #0d1728;
-      --surface: rgba(10, 19, 34, 0.78);
-      --surface-2: rgba(15, 27, 47, 0.92);
-      --text: #eef4ff;
-      --muted: #a9bad4;
-      --line: rgba(255,255,255,0.09);
-      --primary: #7c3aed;
-      --secondary: #06b6d4;
-      --accent: #22c55e;
-      --shadow: 0 18px 45px rgba(0,0,0,0.35);
-      --radius: 24px;
-      --radius-sm: 16px;
-      --max-width: 1120px;
+      --bg: #f6f8fc;
+      --surface: #ffffff;
+      --surface-soft: #fbfcfe;
+      --text: #0f172a;
+      --muted: #475569;
+      --line: #dbe4f0;
+      --line-strong: #c6d3e6;
+      --primary: #163a70;
+      --primary-soft: #eaf1fb;
+      --shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      --shadow-soft: 0 4px 10px rgba(15, 23, 42, 0.03);
+      --radius: 14px;
+      --max-width: 980px;
     }
 
     * { box-sizing: border-box; }
@@ -36,252 +35,160 @@
       font-family: "Inter", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(124,58,237,0.22), transparent 25%),
-        radial-gradient(circle at top right, rgba(6,182,212,0.16), transparent 22%),
-        linear-gradient(180deg, #060d18 0%, #091321 42%, #050b14 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 34px 34px;
-      mask-image: linear-gradient(to bottom, rgba(255,255,255,0.42), transparent 78%);
-      pointer-events: none;
-      z-index: 0;
+        linear-gradient(to bottom, #f8fbff 0%, #f6f8fc 220px, #f6f8fc 100%);
     }
 
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
 
-    .cursor-glow {
-      position: fixed;
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
-      background: radial-gradient(circle, rgba(124,58,237,0.18), transparent 62%);
-      filter: blur(10px);
-      transform: translate(-50%, -50%);
-      opacity: 0.8;
-    }
-
     .wrapper {
       width: min(calc(100% - 2rem), var(--max-width));
       margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .glass {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
     }
 
     .topbar {
       position: sticky;
-      top: 16px;
-      z-index: 50;
-      width: min(calc(100% - 2rem), var(--max-width));
-      margin: 16px auto 0;
-      padding: 12px 18px;
-      border-radius: 999px;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(219, 228, 240, 0.9);
+    }
+
+    .topbar-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 20px;
+      padding: 12px 0;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
+      gap: 10px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
     }
 
     .brand-mark {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
       display: grid;
       place-items: center;
-      font-family: "Space Grotesk", sans-serif;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      box-shadow: 0 12px 26px rgba(124,58,237,0.35);
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.86rem;
+      box-shadow: var(--shadow-soft);
     }
 
     .topnav {
       display: flex;
-      gap: 8px;
       flex-wrap: wrap;
+      gap: 18px;
+      justify-content: flex-end;
     }
 
     .topnav a {
-      padding: 10px 14px;
-      border-radius: 999px;
       color: var(--muted);
-      transition: all 0.25s ease;
       font-size: 0.95rem;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
     }
 
-    .topnav a:hover {
-      color: #fff;
-      background: rgba(255,255,255,0.07);
-      transform: translateY(-1px);
+    .topnav a:hover,
+    .topnav a:focus-visible {
+      color: var(--primary);
+      border-color: var(--primary);
+      outline: none;
     }
 
     .hero-shell {
-      padding: 70px 0 28px;
-    }
-
-    .hero-panel {
-      border-radius: 32px;
-      padding: 42px;
-      overflow: hidden;
-      position: relative;
-      background:
-        radial-gradient(circle at top right, rgba(6,182,212,0.18), transparent 28%),
-        radial-gradient(circle at left center, rgba(124,58,237,0.22), transparent 36%),
-        var(--surface);
-    }
-
-    .hero-panel::after {
-      content: "";
-      position: absolute;
-      right: -70px;
-      bottom: -70px;
-      width: 220px;
-      height: 220px;
-      background: radial-gradient(circle, rgba(255,255,255,0.14), transparent 60%);
-      pointer-events: none;
+      padding: 44px 0 22px;
+      text-align: center;
     }
 
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #d5e0f2;
-      font-size: 0.9rem;
-      margin-bottom: 18px;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--secondary), var(--accent));
-      box-shadow: 0 0 18px rgba(34,197,94,0.8);
-    }
-
-    .hero-grid {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 32px;
-    }
-
-    h1, h2, h3, h4, p {
       color: var(--muted);
-      line-height: 1.82;
-      font-size: 1rem;
-      text-align: left;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      text-align: center;
+      display: block;
     }
+
+    h1, h2, h3, h4 { margin-top: 0; }
 
     h1 {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(2.8rem, 5vw, 4.8rem);
-      line-height: 0.97;
-      letter-spacing: -0.04em;
-      margin-bottom: 14px;
-      max-width: 11ch;
-    }
-
-    .title-gradient {
-      background: linear-gradient(135deg, #ffffff 0%, #b7e8ff 28%, #d0b8ff 68%, #8cf1d0 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      font-family: "Source Serif 4", serif;
+      font-size: clamp(2.6rem, 5vw, 3.8rem);
+      line-height: 1.08;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
 
     .hero-subtitle {
       color: var(--muted);
-      font-size: 1.05rem;
-      line-height: 1.8;
-      max-width: 62ch;
+      font-size: 1rem;
+      line-height: 1.75;
+      margin: 0;
+      text-align: center;
+      display: block;
     }
 
-    .hero-tags { display:none; }
-
-    .tag {
-      padding: 10px 14px;
+    .hero-rule {
+      width: 120px;
+      height: 3px;
+      margin: 20px auto 0;
       border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #dbe5f7;
-      font-size: 0.92rem;
+      background: linear-gradient(90deg, rgba(22,58,112,0.15), rgba(22,58,112,0.65), rgba(22,58,112,0.15));
     }
 
     .authors-panel {
-      padding: 28px;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      width: 100%;
-      max-width: 900px;
+      margin-top: 28px;
     }
 
     .project-name {
-      font-size: 1.1rem;
-      color: #dce7fa;
-      margin-bottom: 18px;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 14px;
       font-weight: 600;
+      text-align: center;
     }
 
     .authors-wrapper {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin-top: 10px;
+      gap: 14px;
     }
 
     .author-container {
       text-align: center;
-      padding: 18px 14px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+      padding: 16px 12px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
     }
 
     .author-container:hover {
-      transform: translateY(-8px);
-      border-color: rgba(124,58,237,0.34);
-      box-shadow: 0 16px 30px rgba(0,0,0,0.24);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+      border-color: var(--line-strong);
     }
 
     .author-image {
-      width: 92px;
-      height: 92px;
-      margin: 0 auto 14px;
+      width: 74px;
+      height: 74px;
+      margin: 0 auto 10px;
       border-radius: 50%;
-      padding: 3px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 2px;
+      background: #e2e8f0;
       overflow: hidden;
     }
 
@@ -290,26 +197,27 @@
       height: 100%;
       object-fit: cover;
       border-radius: 50%;
-      background: linear-gradient(135deg, #21314d, #121a29);
+      background: #f8fafc;
     }
 
-    .author-image img[src=""], .author-image img:not([src]) {
+    .author-image img[src=""],
+    .author-image img:not([src]) {
       opacity: 0;
     }
 
     .author-image:has(img[src=""]),
     .author-image:has(img:not([src])) {
-      background: linear-gradient(135deg, rgba(124,58,237,0.9), rgba(6,182,212,0.9));
       position: relative;
+      background: #e2e8f0;
     }
 
     .author-image:has(img[src=""])::before,
     .author-image:has(img:not([src]))::before {
       content: "";
       position: absolute;
-      inset: 3px;
+      inset: 2px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #243552, #101929);
+      background: #f8fafc;
     }
 
     .author-image:has(img[src=""])::after,
@@ -319,177 +227,124 @@
       inset: 0;
       display: grid;
       place-items: center;
-      color: white;
-      font-weight: 700;
-      font-size: 1.2rem;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 1rem;
       z-index: 1;
     }
 
     .author-container p {
       margin: 0;
-      color: #edf3ff;
-      line-height: 1.55;
-      font-size: 0.98rem;
-    }
-
-    .publication-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      justify-content: center;
-      margin-top: 30px;
-    }
-
-    .link-block { display: inline-flex; }
-
-    .external-link.button {
-      position: relative;
-      min-width: 170px;
-      padding: 14px 22px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.10);
-      color: white;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-      overflow: hidden;
-      isolation: isolate;
-      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
-    }
-
-    .external-link.button::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -2;
-      background: linear-gradient(120deg, rgba(124,58,237,0.95), rgba(6,182,212,0.95));
-      transition: transform 0.35s ease;
-    }
-
-    .external-link.button::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background: linear-gradient(120deg, rgba(255,255,255,0.16), rgba(255,255,255,0.02));
-      transform: translateX(-110%);
-      transition: transform 0.45s ease;
-    }
-
-    .external-link.button:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 34px rgba(124,58,237,0.28);
-      border-color: rgba(255,255,255,0.18);
-    }
-
-    .external-link.button:hover::before {
-      transform: scale(1.06);
-    }
-
-    .external-link.button:hover::after {
-      transform: translateX(0);
-    }
-
-    .external-link.button.is-outlined::before {
-      background: linear-gradient(120deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-    }
-
-    .external-link.button.is-dark:not(.is-outlined)::before {
-      background: linear-gradient(120deg, rgba(124,58,237,0.95), rgba(6,182,212,0.95));
+      color: var(--text);
+      line-height: 1.45;
+      font-size: 0.95rem;
+      text-align: center;
     }
 
     hr {
       border: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent);
-      margin: 38px 0;
-    }
-
-    section.content-section,
-    .content-card {
-      scroll-margin-top: 110px;
-      border-radius: 24px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+      margin: 30px 0;
     }
 
     .content-card {
-      padding: 28px;
-      margin-bottom: 22px;
+      scroll-margin-top: 88px;
+      padding: 26px;
+      margin-bottom: 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
     }
 
     h2 {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
-      letter-spacing: -0.03em;
+      font-family: "Source Serif 4", serif;
+      font-size: clamp(1.7rem, 3vw, 2.25rem);
       margin-bottom: 14px;
       text-align: center;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .section-rule {
+      width: 64px;
+      height: 2px;
+      margin: -2px auto 18px;
+      background: var(--line-strong);
+      border-radius: 999px;
     }
 
     h3 {
-      font-size: 1.18rem;
+      font-size: 1.08rem;
       margin-bottom: 10px;
+      color: var(--text);
+      font-weight: 600;
     }
 
     p {
       color: var(--muted);
-      line-height: 1.82;
+      line-height: 1.78;
       font-size: 1rem;
+      text-align: left;
+      margin-top: 0;
     }
 
-    .lead-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 22px;
-    }
-
+    .lead-grid,
     .metric-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 16px;
-      margin-top: 18px;
+      gap: 14px;
+    }
+
+    .metric-card,
+    .summary-item,
+    .figure-card {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 12px;
     }
 
     .metric-card {
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: transform 0.25s ease, border-color 0.25s ease;
-    }
-
-    .metric-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(6,182,212,0.35);
+      padding: 16px;
     }
 
     .metric-card strong {
       display: block;
-      color: white;
-      font-size: 1.5rem;
+      color: var(--primary);
+      font-size: 1.04rem;
       margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .question {
+      color: var(--text);
+      font-weight: 600;
     }
 
     .figure-card {
-      padding: 18px;
-      border-radius: 24px;
-      overflow: hidden;
+      padding: 14px;
     }
 
     .sys-img {
       margin: 0;
-      border-radius: 20px;
+      border-radius: 8px;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
-      position: relative;
+      border: 1px solid var(--line);
+      background: #fff;
     }
 
     .sys-img img {
       width: 100%;
       aspect-ratio: 16 / 9;
       object-fit: cover;
-      transition: transform 0.55s ease;
-    }
-
-    .sys-img:hover img {
-      transform: scale(1.04);
     }
 
     .figure-caption {
@@ -498,36 +353,27 @@
       font-size: 0.96rem;
     }
 
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-    }
-
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
       overflow: hidden;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.08);
     }
 
     th, td {
-      padding: 16px 18px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
       text-align: center;
       color: var(--muted);
+      vertical-align: top;
     }
 
     th {
-      color: white;
-      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      background: #f8fafc;
       font-weight: 600;
-    }
-
-    tbody tr:hover td {
-      background: rgba(255,255,255,0.03);
     }
 
     caption {
@@ -538,191 +384,156 @@
     }
 
     .results-visual {
-      margin-top: 24px;
-      border-radius: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid var(--line);
+      background: #fff;
     }
 
     .results-visual img {
       width: 100%;
       aspect-ratio: 16 / 7;
       object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .results-visual:hover img {
-      transform: scale(1.03);
     }
 
     .summary-list {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+      gap: 16px;
     }
 
     .summary-item {
-      padding: 22px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: all 0.25s ease;
+      padding: 18px;
     }
 
-    .summary-item:hover {
-      transform: translateY(-5px);
-      border-color: rgba(124,58,237,0.35);
+    .summary-item h3 {
+      text-align: center;
+      margin-bottom: 8px;
     }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.75s ease, transform 0.75s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .summary-item p {
+      margin-bottom: 0;
     }
 
     @media (max-width: 980px) {
-      .hero-grid,
-      .lead-grid,
-      .two-col,
-      .summary-list,
-      .metric-grid,
-      .authors-wrapper {
-        grid-template-columns: 1fr 1fr;
+      .authors-wrapper,
+      .summary-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 760px) {
       .topbar {
         position: static;
-        border-radius: 24px;
       }
 
       .topnav {
         display: none;
       }
 
-      .hero-panel,
-      .content-card {
-        padding: 22px;
-      }
-
-      .hero-grid,
-      .lead-grid,
-      .two-col,
+      .authors-wrapper,
       .summary-list,
-      .metric-grid,
-      .authors-wrapper {
+      .two-col {
         grid-template-columns: 1fr;
       }
 
-      .publication-links {
-        flex-direction: column;
+      .content-card {
+        padding: 20px;
       }
 
-      .external-link.button {
-        width: 100%;
-        justify-content: center;
+      h1 {
+        font-size: 2.3rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="cursor-glow" id="cursorGlow"></div>
-
-  <nav class="topbar glass">
-    <div class="brand">
-      <span>Stack OverFlowers</span>
-    </div>
-    <div class="topnav">
-      <a href="#abstract">Abstract</a>
-      <a href="#teaser">Teaser Figure</a>
-      <a href="#introduction">Introduction</a>
-      <a href="#approach">Approach</a>
-      <a href="#results">Results</a>
-      <a href="#conclusion">Conclusion</a>
+  <nav class="topbar">
+    <div class="wrapper topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">SO</div>
+        <span>Stack OverFlowers</span>
+      </div>
+      <div class="topnav">
+        <a href="#abstract">Abstract</a>
+        <a href="#teaser">Teaser Figure</a>
+        <a href="#introduction">Introduction</a>
+        <a href="#approach">Approach</a>
+        <a href="#results">Results</a>
+        <a href="#conclusion">Conclusion</a>
+      </div>
     </div>
   </nav>
 
-  <div class="wrapper hero-shell reveal">
-    <div class="hero-panel glass">
-      <div class="hero-grid">
-        <div>
-          <div class="eyebrow">Spring 2026 · CSCI 5541 NLP · University of Minnesota</div>
-          <h1><span class="title-gradient">Your Title Here</span></h1>
-          <p class="hero-subtitle">
-            Spring 2026 CSCI 5541 NLP: Class Project - University of Minnesota
-          </p>
+  <div class="wrapper hero-shell">
+    <div class="eyebrow">Spring 2026 · CSCI 5541 NLP · University of Minnesota</div>
+    <h1>Your Title Here</h1>
+    <p class="hero-subtitle">Spring 2026 CSCI 5541 NLP: Class Project - University of Minnesota</p>
+    <div class="hero-rule"></div>
+
+    <div class="authors-panel">
+      <div class="project-name">Stack OverFlowers</div>
+      <div class="authors-wrapper">
+        <div class="author-container">
+          <div class="author-image" data-initials="WS">
+            <img src="./files/WoochangShin.jpg" alt="Woochang Shin">
+          </div>
+          <p>Woochang Shin</p>
         </div>
 
-        <div class="authors-panel">
-          <div class="project-name">Stack OverFlowers Members</div>
-          <div class="authors-wrapper">
-            <div class="author-container">
-              <div class="author-image" data-initials="WS">
-                <img src="./files/WoochangShin.jpg" alt="Woochang Shin">
-              </div>
-              <p>Woochang Shin</p>
-            </div>
-
-            <div class="author-container">
-              <div class="author-image" data-initials="JK">
-                <img src="" alt="Jisun Kim">
-              </div>
-              <p>Jisun Kim</p>
-            </div>
-
-            <div class="author-container">
-              <div class="author-image" data-initials="SH">
-                <img src="" alt="Steven Hu">
-              </div>
-              <p>Steven Hu</p>
-            </div>
-
-            <div class="author-container">
-              <div class="author-image" data-initials="SS">
-                <img src="./files/SamarthKumarSamal(SAM).png" alt="Samarth Kumar Samal">
-              </div>
-              <p>Samarth Kumar Samal</p>
-            </div>
+        <div class="author-container">
+          <div class="author-image" data-initials="JK">
+            <img src="" alt="Jisun Kim">
           </div>
+          <p>Jisun Kim</p>
+        </div>
 
+        <div class="author-container">
+          <div class="author-image" data-initials="SH">
+            <img src="" alt="Steven Hu">
           </div>
+          <p>Steven Hu</p>
+        </div>
+
+        <div class="author-container">
+          <div class="author-image" data-initials="SS">
+            <img src="./files/SamarthKumarSamal(SAM).png" alt="Samarth Kumar Samal">
+          </div>
+          <p>Samarth Kumar Samal</p>
+        </div>
       </div>
     </div>
   </div>
-  </div>
 
   <div class="wrapper">
-
     <hr>
 
-    <section id="abstract" class="content-card glass reveal section-anchor">
-      <div class="lead-grid" style="grid-template-columns: 1fr;">
+    <section id="abstract" class="content-card">
+      <h2>Abstract</h2>
+      <div class="section-rule"></div>
+      <div class="lead-grid">
         <div>
-          <h2>Abstract</h2>
           <p>
             One or two sentences on the motivation behind the problem you are solving. One or two sentences describing the approach you took. One or two sentences on the main result you obtained.
           </p>
         </div>
-        <div>
-          <div class="metric-grid">
-            <div class="metric-card">
-              <strong>Task</strong>
-              <p>Briefly name the core problem.</p>
-            </div>
-            <div class="metric-card">
-              <strong>Method</strong>
-              <p>State the approach or model.</p>
-            </div>
-            <div class="metric-card">
-              <strong>Result</strong>
-              <p>Highlight the key outcome.</p>
-            </div>
+        <div class="metric-grid">
+          <div class="metric-card">
+            <strong>Task</strong>
+            <p>Briefly name the core problem.</p>
+          </div>
+          <div class="metric-card">
+            <strong>Method</strong>
+            <p>State the approach or model.</p>
+          </div>
+          <div class="metric-card">
+            <strong>Result</strong>
+            <p>Highlight the key outcome.</p>
           </div>
         </div>
       </div>
@@ -730,34 +541,36 @@
 
     <hr>
 
-    <section id="teaser" class="content-card glass reveal section-anchor">
+    <section id="teaser" class="content-card">
       <h2>Teaser Figure</h2>
+      <div class="section-rule"></div>
       <p>
-        A figure that conveys the main idea behind the project or the main application being addressed. This figure is from <a href="https://arxiv.org/pdf/2210.07469" style="color:#8ec5ff;">StyLEx</a>.
+        A figure that conveys the main idea behind the project or the main application being addressed. This figure is from <a href="https://arxiv.org/pdf/2210.07469" style="color: var(--primary); text-decoration: underline; text-underline-offset: 2px;">StyLEx</a>.
       </p>
-      <div class="figure-card glass">
+      <div class="figure-card">
         <p class="sys-img"><img src="./files/teaser.png" alt="Teaser figure"></p>
         <p class="figure-caption">Use this caption area to explain the core intuition behind your figure in one concise statement.</p>
       </div>
 
       <h3 id="the-timeline-and-the-highlights">Any subsection</h3>
-      <p>If you need to explain more about your figure</p>
+      <p>If you need to explain more about your figure.</p>
     </section>
 
     <hr>
 
-    <section id="introduction" class="content-card glass reveal section-anchor">
+    <section id="introduction" class="content-card">
       <h2>Introduction / Background / Motivation</h2>
+      <div class="section-rule"></div>
       <div class="two-col">
         <div>
-          <p><b style="color:#fff;">What did you try to do? What problem did you try to solve? Articulate your objectives using absolutely no jargon.</b></p>
+          <p class="question">What did you try to do? What problem did you try to solve? Articulate your objectives using absolutely no jargon.</p>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
-          <p><b style="color:#fff;">How is it done today, and what are the limits of current practice?</b></p>
+          <p class="question">How is it done today, and what are the limits of current practice?</p>
           <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
         </div>
         <div>
-          <p><b style="color:#fff;">Who cares? If you are successful, what difference will it make?</b></p>
+          <p class="question">Who cares? If you are successful, what difference will it make?</p>
           <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
         </div>
       </div>
@@ -765,15 +578,16 @@
 
     <hr>
 
-    <section id="approach" class="content-card glass reveal section-anchor">
+    <section id="approach" class="content-card">
       <h2>Approach</h2>
+      <div class="section-rule"></div>
       <div class="two-col">
         <div>
-          <p><b style="color:#fff;">What did you do exactly? How did you solve the problem? Why did you think it would be successful? Is anything new in your approach?</b></p>
+          <p class="question">What did you do exactly? How did you solve the problem? Why did you think it would be successful? Is anything new in your approach?</p>
           <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
         <div>
-          <p><b style="color:#fff;">What problems did you anticipate? What problems did you encounter? Did the very first thing you tried work?</b></p>
+          <p class="question">What problems did you anticipate? What problems did you encounter? Did the very first thing you tried work?</p>
           <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
         </div>
       </div>
@@ -781,11 +595,10 @@
 
     <hr>
 
-    <section id="results" class="content-card glass reveal section-anchor">
+    <section id="results" class="content-card">
       <h2>Results</h2>
-      <p>
-        <b style="color:#fff;">How did you measure success? What experiments were used? What were the results, both quantitative and qualitative? Did you succeed? Did you fail? Why?</b>
-      </p>
+      <div class="section-rule"></div>
+      <p class="question">How did you measure success? What experiments were used? What were the results, both quantitative and qualitative? Did you succeed? Did you fail? Why?</p>
       <p>
         Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
       </p>
@@ -801,13 +614,13 @@
         </thead>
         <tbody>
           <tr>
-            <td><strong style="color:#fff;">Sentence</strong></td>
+            <td><strong>Sentence</strong></td>
             <td>Example 1</td>
             <td>Example 2</td>
             <td>Example 3</td>
           </tr>
           <tr>
-            <td><strong style="color:#fff;">Errors</strong></td>
+            <td><strong>Errors</strong></td>
             <td>error A, error B, error C</td>
             <td>error C</td>
             <td>error B</td>
@@ -823,8 +636,9 @@
 
     <hr>
 
-    <section id="conclusion" class="content-card glass reveal section-anchor">
-      <h2>Conclustion and Future Work</h2>
+    <section id="conclusion" class="content-card">
+      <h2>Conclusion and Future Work</h2>
+      <div class="section-rule"></div>
       <div class="summary-list">
         <div class="summary-item">
           <h3>Reproducibility</h3>
@@ -841,26 +655,5 @@
       </div>
     </section>
   </div>
-
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-
-    const glow = document.getElementById('cursorGlow');
-    window.addEventListener('mousemove', (e) => {
-      glow.style.left = e.clientX + 'px';
-      glow.style.top = e.clientY + 'px';
-    });
-
-    window.addEventListener('mouseleave', () => glow.style.opacity = '0');
-    window.addEventListener('mouseenter', () => glow.style.opacity = '0.8');
-  </script>
 </body>
 </html>
