@@ -126,11 +126,27 @@
   <div class="wrapper">
     <hr>
     
-    <h2 id="abstract">Project Overview</h2>
- 
-<p>This project develops a temporal clinical reasoning framework for automated ICD and CPT medical coding.
-Unlike traditional NLP-based coding systems that treat each clinical note independently, our approach models diagnostic changes over time,
-integrates structured clinical data with free-text notes, and aims to provide more consistent and explainable predictions.</p>
+  <h2 id="abstract">Abstract</h2>
+
+<p>
+This project focuses on predicting ICD (diagnosis codes) and CPT (procedure codes) from clinical records. Existing methods do not fully use time information or data from multiple documents. Our goal is to solve this problem.
+</p>
+
+<p>
+Most previous models use only a single document, such as a discharge summary. Because of this, they cannot capture important information, such as changes in the patient’s condition during admission or information from radiology reports, lab results, and other documents.
+</p>
+
+<p>
+To solve this problem, we organize the data at the admission level and design two baseline models for comparison. Baseline 1 is a BioClinicalBERT-based multi-label classification model that uses only a discharge summary as input. Baseline 2 combines multiple clinical documents, including discharge and radiology notes, to use more information. In Baseline 2, we use a Longformer model to handle long text more effectively.
+</p>
+
+<p>
+In early experiments, Baseline 1 used 86,146 admissions and achieved Micro-F1 of 0.4615, Macro-F1 of 0.4660, Precision@5 of 0.2340, and Precision@8 of 0.1603. Baseline 2 used a smaller sample of 2,000 admissions and achieved Precision@5 of 0.1034 and Precision@8 of 0.0767. This shows the limits of simple document merging and limited data.
+</p>
+
+<p>
+We also design a BioClinicalBERT + LSTM model to include temporal reasoning by processing multiple clinical documents in time order. This model used 101,655 admissions and achieved a validation Micro-F1 of 0.4636 after 1 epoch. This suggests that temporal modeling may improve performance compared to the baselines.
+</p>
  
 <hr>
  
