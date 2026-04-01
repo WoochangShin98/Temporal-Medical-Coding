@@ -183,17 +183,29 @@ Before building our final temporal modeling system, we designed two baseline mod
 We used the following data. The discharge.csv file contains discharge summary notes, which are the main text for final clinical summaries. The main columns are hadm_id, charttime, and text. The radiology.csv file contains radiology reports with time-related imaging information. Its main columns are also hadm_id, charttime, and text. To connect ICD labels, we used diagnosis.csv together with edstays.csv. In diagnosis.csv, the main columns are stay_id and icd_code. In edstays.csv, stay_id is linked to hadm_id, which allows us to connect admissions with ICD labels.
 </p>
 
+<hr>
+
+<h3>Baseline 1</h3>
+
 <p>
 In Baseline 1, we built a model that predicts ICD codes from only one discharge summary. We matched notes and labels using hadm_id and collected 86,146 admissions. The model is based on BioClinicalBERT, and we added a dropout layer and a linear classification head to predict the presence of the top 50 ICD codes. The data were split into Train, Validation, and Test sets as 60,302 / 12,922 / 12,922. This baseline is simple and stable, but it cannot use the many kinds of clinical information created during admission.
 </p>
+
+<h3>Baseline 2</h3>
 
 <p>
 In Baseline 2, we designed a multi-document model to use richer information. For each admission, discharge and radiology documents were grouped by hadm_id and then sorted by charttime. After that, multiple documents were merged into one long text input. We used a Longformer-based multi-label classification model to predict 50 ICD codes. This approach can use more information than a single-document model and better reflects the structure of real clinical data. However, in our early experiment, it used only a small sample and simple document merging, so it could not fully capture temporal relationships.
 </p>
 
+<h3>Temporal Model</h3>
+
 <p>
 In our temporal model, we explicitly include temporal reasoning by processing multiple documents in time order within the same hadm_id. Radiology notes and discharge summaries are sorted by charttime, and up to five notes are used as one sequence for each admission. Each document is first encoded with BioClinicalBERT, and then a two-layer unidirectional LSTM models the patient’s state changes across time. Using this structure, we collected 101,655 admissions and split them into Train / Validation / Test as 71,158 / 15,248 / 15,249.
 </p>
+
+<hr>
+
+<h3>Challenges</h3>
 
 <p>
 There were several implementation challenges. In Baseline 1, there was an ID mismatch problem when connecting discharge.csv and diagnosis.csv. Because discharge notes and ICD tables did not directly share the same ID format, we used edstays.csv as a bridge to convert stay_id into hadm_id. In Baseline 2 and the temporal model, it was also important to keep data consistency while merging multiple files. In addition, input length became much larger when documents were combined or processed as sequences, which increased memory usage.
@@ -306,13 +318,13 @@ At the current stage, we focus on ICD prediction to confirm the stability of the
 Future work will focus on the following directions:
 </p>
 
-<ul>
+<ol>
   <li>Train the temporal model longer (at least 3 epochs) and report final test performance</li>
   <li>Add structured data such as lab results, vital signs, and medications as additional inputs</li>
   <li>Introduce preprocessing methods to detect copy-forward problems and remove repeated information</li>
   <li>Extend the system from ICD prediction to joint ICD and CPT prediction</li>
   <li>Fully train Baseline 2 (Longformer) on a larger dataset and perform a fairer comparison</li>
-</ul>
+</ol>
 
 <hr>
  
