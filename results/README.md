@@ -30,6 +30,8 @@ The following example demonstrates how the model processes multiple clinical not
 
 The model predicts ICD and CPT codes by leveraging multiple temporally ordered clinical notes for each patient.
 
+The model integrates diverse clinical notes (e.g., radiology, nursing, and procedure notes) over time to infer both diagnosis (ICD) and procedure (CPT) codes.
+
 Below is an example prediction for a single admission (HADM_ID: 100053):
 
 ```text
@@ -53,6 +55,6 @@ Patient occasionally confused, oriented when asked
 ICD: ['N179', 'J9600', 'J9690', 'A419', 'R6520', 'D696', 'I120', 'R6521']
 CPT: ['99291', '99232', '99233', '94003', '99231', '94002', '99254', '99255', '99292', '36556', '90935']
 
-The model integrates diverse clinical notes (e.g., radiology, nursing, and procedure notes) over time to infer both diagnosis (ICD) and procedure (CPT) codes.
+
 
 For more detailed predictions across all samples, please refer to the test_predictions.jsonl file.
