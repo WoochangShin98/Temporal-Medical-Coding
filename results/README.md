@@ -22,27 +22,37 @@ The model shows stable performance across runs and improves over simple baseline
 | ICD Micro-F1 | 0.435 | ~0.52–0.55 |
 | ICD P@5 | 0.45 | ~0.60+ |
 
-Our model achieves competitive performance, while additionally supporting joint ICD and CPT prediction.
+Our model achieves competitive performance while additionally supporting joint ICD and CPT prediction.
 
 ### Example Prediction
+
+The following example demonstrates how the model processes multiple clinical notes to generate predictions.
 
 The model predicts ICD and CPT codes by leveraging multiple temporally ordered clinical notes for each patient.
 
 Below is an example prediction for a single admission (HADM_ID: 100053):
+
+```text
 HADM_ID: 100053
 
 [NOTES]
 CHEST (PORTABLE AP)
 Reason: pneumonia? chf?
+
 ABDOMEN U.S. (PORTABLE)
 Reason: r/o portal venous thrombosis, assess ascites
+
 CENTRAL LINE PLCT
 Reason: line placement for HD
+
 CONDITION UPDATE
 Patient occasionally confused, oriented when asked
+
 ...
+
 ICD: ['N179', 'J9600', 'J9690', 'A419', 'R6520', 'D696', 'I120', 'R6521']
 CPT: ['99291', '99232', '99233', '94003', '99231', '94002', '99254', '99255', '99292', '36556', '90935']
 
 The model integrates diverse clinical notes (e.g., radiology, nursing, and procedure notes) over time to infer both diagnosis (ICD) and procedure (CPT) codes.
-For more detailed predictions across all samples, please refer to the `test_predictions.jsonl` file. :contentReference[oaicite:0]{index=0}
+
+For more detailed predictions across all samples, please refer to the test_predictions.jsonl file.
