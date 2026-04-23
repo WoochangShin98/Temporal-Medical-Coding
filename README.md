@@ -161,10 +161,12 @@ Future work will focus on:
 - **Woochang Shin**
   - Baseline Model 2: Longformer-based model
   - Temporal Model for joint ICD and CPT prediction
+  - Project website development and maintenance
 
 - **Jisun Kim**
   - Baseline Model 1: BioClinicalBERT note-level model
-  - Temporal Model for ICD prediction  
+  - Temporal Model for ICD prediction
+  - Project website maintenance and updates
 
 - **Steven Hu**
   - MIMIC data access
@@ -173,7 +175,8 @@ Future work will focus on:
   - Result extraction and evaluation
 
 - **Samarth Kumar Samal**
-  - Project support and documentation  
+  - Project support
+  - Project documentation
 
 ---
 
