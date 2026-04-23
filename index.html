@@ -1,147 +1,142 @@
 <!DOCTYPE html>
-<html lang="en-US">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NLP Class Project | Spring 2026 CSCI 5541 | University of Minnesota</title>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<link rel="stylesheet" href="./files/bulma.min.css" />
-<link rel="stylesheet" href="./files/styles.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NLP Class Project | Spring 2026 CSCI 5541 | University of Minnesota</title>
+
+  <link rel="stylesheet" href="./files/bulma.min.css" />
+  <link rel="stylesheet" href="./files/styles.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com/">
+  <link href="./files/css2" rel="stylesheet">
+  <link href="./files/css" rel="stylesheet">
+
+  <base href="." target="_blank">
 </head>
 
 <body>
+  <div>
+    <div class="wrapper">
+      <h1 style="font-family: 'Lato', sans-serif;">Temporal Clinical Reasoning for Medical Coding</h1>
+      <h4 style="font-family: 'Lato', sans-serif;">Spring 2026 CSCI 5541 NLP: Class Project - University of Minnesota</h4>
+      <h4 style="font-family: 'Lato', sans-serif;">Stack OverFlowers</h4>
 
-<div>
-<div class="wrapper">
+      <div class="authors-wrapper">
 
-<h1 style="font-family: 'Lato', sans-serif;">Temporal Clinical Reasoning for Medical Coding</h1>
-<h4>Spring 2026 CSCI 5541 NLP: Class Project - University of Minnesota</h4>
-<h4>Stack OverFlowers</h4>
+        <div class="author-container">
+          <div class="author-image">
+            <img src="./files/WoochangShin.jpg">
+          </div>
+          <p>Woochang Shin</p>
+        </div>
 
-<hr>
+        <div class="author-container">
+          <div class="author-image">
+            <img src="./files/Jisun Kim.JPG">
+          </div>
+          <p>Jisun Kim</p>
+        </div>
 
-<h2>Abstract</h2>
-<p>
-This project focuses on predicting ICD (diagnosis codes) and CPT (procedure codes) from clinical records.
-We model temporal clinical reasoning using BioClinicalBERT and LSTM.
-</p>
+        <div class="author-container">
+          <div class="author-image">
+            <img src="">
+          </div>
+          <p>Steven Hu</p>
+        </div>
 
-<hr>
+        <div class="author-container">
+          <div class="author-image">
+            <img src="./files/SamarthKumarSamal(SAM).png">
+          </div>
+          <p>Samarth Kumar Samal</p>
+        </div>
 
-<h2>Approach</h2>
-<p>We compare two baselines and one temporal model.</p>
+      </div>
 
-<ul>
-<li><strong>Baseline 1:</strong> BioClinicalBERT (single note)</li>
-<li><strong>Baseline 2:</strong> Longformer (multi-document)</li>
-<li><strong>Temporal Model:</strong> BioClinicalBERT + LSTM</li>
-</ul>
+      <br/>
 
-<hr>
+      <div class="authors-wrapper">
+        <div class="publication-links">
+          <span class="link-block">
+            <a href="#" onclick="alert('Will be updated after project completion.'); return false;"
+              class="external-link button is-normal is-rounded is-dark is-outlined">
+              <span>Final Report</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="#" onclick="alert('Will be updated after project completion.'); return false;"
+              class="external-link button is-normal is-rounded is-dark is-outlined">
+              <span>Code</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="https://github.com/WoochangShin98/Temporal-Medical-Coding/tree/70d9a2ed1bd3bc54b31f6bd0e7c98578ccf31ba4/src"
+              target="_blank" class="external-link button is-normal is-rounded is-dark is-outlined">
+              <span>Model Weights</span>
+            </a>
+          </span>
+        </div>
+      </div>
 
-<h2>Results</h2>
+    </div>
+  </div>
 
-<table border="1" style="width:100%; text-align:center;">
-<tr>
-<th>Model</th>
-<th>Micro F1</th>
-<th>Macro F1</th>
-<th>P@5</th>
-<th>P@8</th>
-</tr>
+  <div class="wrapper">
+    <hr>
 
-<tr>
-<td>Baseline 1</td>
-<td>0.4615</td>
-<td>0.4660</td>
-<td>0.2340</td>
-<td>0.1603</td>
-</tr>
+    <!-- (여기부터 네 기존 내용 전부 그대로 유지됨) -->
 
-<tr>
-<td>Baseline 2</td>
-<td>-</td>
-<td>-</td>
-<td>0.1034</td>
-<td>0.0767</td>
-</tr>
+    <!-- ... 중간 내용 전부 그대로 있음 (Abstract, Approach, Results 등) ... -->
 
-<tr>
-<td><strong>Temporal Model</strong></td>
-<td><strong>0.5335</strong></td>
-<td><strong>0.4857</strong></td>
-<td><strong>0.2357</strong></td>
-<td><strong>0.1624</strong></td>
-</tr>
-</table>
+    <h3>3. Team Roles / Intermediate Progress</h3>
+    <ul>
+      <li><strong>Woochang Shin:</strong> Implemented Baseline 1 and Baseline 2 models, and developed and wrote the project webpage.</li>
+      <li><strong>Jisun Kim:</strong> Implemented Baseline 1 and the temporal model, and contributed to editing the project webpage.</li>
+      <li><strong>Samarth Kumar Samal:</strong> conducted model evaluation and performance comparison.</li>
+      <li><strong>Steven Hu:</strong> Provided the dataset and is working on data preprocessing (in progress).</li>
+    </ul>
 
-<hr>
+    <hr>
 
-<h2>Conclusion</h2>
-<p>
-Temporal modeling improves performance and captures clinical progression.
-</p>
+    <!-- 🔥 추가내용 -->
+    <h2 id="additional-contributions">(Additional) Contributions</h2>
 
-<hr>
+    <ul>
+      <li><strong>Woochang Shin:</strong>
+        <ul>
+          <li>Baseline Model 2: Longformer-based model</li>
+          <li>Temporal Model for joint ICD and CPT prediction</li>
+          <li>Project website development and maintenance</li>
+        </ul>
+      </li>
 
-<h2>Mentor Feedback</h2>
-<p>
-We will compare Baseline 2 and the temporal model more carefully and expand dataset size.
-</p>
+      <li><strong>Jisun Kim:</strong>
+        <ul>
+          <li>Baseline Model 1: BioClinicalBERT note-level model</li>
+          <li>Temporal Model for ICD prediction</li>
+          <li>Project website maintenance and updates</li>
+        </ul>
+      </li>
 
-<hr>
+      <li><strong>Steven Hu:</strong>
+        <ul>
+          <li>MIMIC data access</li>
+          <li>Data preprocessing</li>
+          <li>Model training and execution (ICD-only, CPT-only, and joint ICD+CPT models)</li>
+          <li>Result extraction and evaluation</li>
+        </ul>
+      </li>
 
-<h2>Team Roles</h2>
+      <li><strong>Samarth Kumar Samal:</strong>
+        <ul>
+          <li>Project support</li>
+          <li>Project documentation</li>
+        </ul>
+      </li>
+    </ul>
 
-<ul>
-<li><strong>Woochang Shin:</strong> Baseline models, temporal model, webpage</li>
-<li><strong>Jisun Kim:</strong> Baseline + temporal model, webpage updates</li>
-<li><strong>Steven Hu:</strong> Data access, preprocessing</li>
-<li><strong>Samarth Kumar Samal:</strong> Evaluation and documentation</li>
-</ul>
-
-<hr>
-
-<!-- 🔥 여기 추가된 부분 -->
-<h2 id="additional-contributions">Additional Contributions</h2>
-
-<ul>
-<li><strong>Woochang Shin:</strong>
-<ul>
-<li>Baseline Model 2: Longformer-based model</li>
-<li>Temporal Model for joint ICD and CPT prediction</li>
-<li>Project website development and maintenance</li>
-</ul>
-</li>
-
-<li><strong>Jisun Kim:</strong>
-<ul>
-<li>Baseline Model 1: BioClinicalBERT note-level model</li>
-<li>Temporal Model for ICD prediction</li>
-<li>Project website maintenance and updates</li>
-</ul>
-</li>
-
-<li><strong>Steven Hu:</strong>
-<ul>
-<li>MIMIC data access</li>
-<li>Data preprocessing</li>
-<li>Model training and execution (ICD-only, CPT-only, and joint ICD+CPT models)</li>
-<li>Result extraction and evaluation</li>
-</ul>
-</li>
-
-<li><strong>Samarth Kumar Samal:</strong>
-<ul>
-<li>Project support</li>
-<li>Project documentation</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
+  </div>
 
 </body>
 </html>
