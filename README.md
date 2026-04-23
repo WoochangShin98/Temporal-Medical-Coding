@@ -169,7 +169,8 @@ Future work will focus on:
 - **Steven Hu**
   - MIMIC data access
   - Data preprocessing
-  - Model training, execution, and result extraction
+  - Model training and execution (ICD-only, CPT-only, and joint ICD+CPT models)
+  - Result extraction and evaluation
 
 - **Samarth Kumar Samal**
   - Project support and documentation  
