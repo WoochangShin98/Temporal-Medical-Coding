@@ -1,409 +1,146 @@
 <!DOCTYPE html>
-<!-- saved from url=(0014)about:internet -->
-<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NLP Class Project | Spring 2026 CSCI 5541 | University of Minnesota</title>
 
   <link rel="stylesheet" href="./files/bulma.min.css" />
   <link rel="stylesheet" href="./files/styles.css">
-  <link rel="preconnect" href="https://fonts.gstatic.com/">
-  <link href="./files/css2" rel="stylesheet">
-  <link href="./files/css" rel="stylesheet">
-
-  <base href="." target="_blank">
 </head>
 
 <body>
-  <div>
-    <div class="wrapper">
-      <h1 style="font-family: 'Lato', sans-serif;">Temporal Clinical Reasoning for Medical Coding</h1>
-      <h4 style="font-family: 'Lato', sans-serif;">Spring 2026 CSCI 5541 NLP: Class Project - University of Minnesota</h4>
-      <h4 style="font-family: 'Lato', sans-serif;">Stack OverFlowers</h4>
 
-      <div class="authors-wrapper">
+<div class="wrapper">
 
-        <div class="author-container">
-          <div class="author-image">
-            <img src="./files/WoochangShin.jpg">
-          </div>
-          <p>Woochang Shin</p>
-        </div>
+  <h1>Temporal Clinical Reasoning for Medical Coding</h1>
+  <h4>Spring 2026 CSCI 5541 NLP: Class Project - University of Minnesota</h4>
+  <h4>Stack OverFlowers</h4>
 
-        <div class="author-container">
-          <div class="author-image">
-            <img src="./files/Jisun Kim.JPG">
-          </div>
-          <p>Jisun Kim</p>
-        </div>
+  <hr>
 
-        <div class="author-container">
-          <div class="author-image">
-            <img src="">
-          </div>
-          <p>Steven Hu</p>
-        </div>
+  <h2>Abstract</h2>
+  <p>
+    This project predicts ICD and CPT codes from clinical records using temporal modeling.
+    Unlike traditional methods that use a single document, our approach models multiple
+    clinical notes over time using BioClinicalBERT and LSTM.
+  </p>
 
-        <div class="author-container">
-          <div class="author-image">
-            <img src="./files/SamarthKumarSamal(SAM).png">
-          </div>
-          <p>Samarth Kumar Samal</p>
-        </div>
+  <hr>
 
-      </div>
+  <h2>Approach</h2>
+  <p>
+    We compare two baselines and one temporal model:
+  </p>
 
-      <br/>
+  <ul>
+    <li><strong>Baseline 1:</strong> Single discharge summary (BioClinicalBERT)</li>
+    <li><strong>Baseline 2:</strong> Multi-document (Longformer)</li>
+    <li><strong>Temporal Model:</strong> BioClinicalBERT + LSTM with time ordering</li>
+  </ul>
 
-      <div class="authors-wrapper">
-        <div class="publication-links">
-          <span class="link-block">
-            <a href="#" onclick="alert('Will be updated after project completion.'); return false;"
-              class="external-link button is-normal is-rounded is-dark is-outlined">
-              <span>Final Report</span>
-            </a>
-          </span>
-          <span class="link-block">
-            <a href="#" onclick="alert('Will be updated after project completion.'); return false;"
-              class="external-link button is-normal is-rounded is-dark is-outlined">
-              <span>Code</span>
-            </a>
-          </span>
-          <span class="link-block">
-            <a href="https://github.com/WoochangShin98/Temporal-Medical-Coding/tree/70d9a2ed1bd3bc54b31f6bd0e7c98578ccf31ba4/src"
-              target="_blank" class="external-link button is-normal is-rounded is-dark is-outlined">
-              <span>Model Weights</span>
-            </a>
-          </span>
-        </div>
-      </div>
+  <hr>
 
-    </div>
-  </div>
+  <h2>Results</h2>
 
+  <table border="1" style="width:100%; text-align:center;">
+    <tr>
+      <th>Model</th>
+      <th>Micro F1</th>
+      <th>Macro F1</th>
+      <th>P@5</th>
+      <th>P@8</th>
+    </tr>
+    <tr>
+      <td>Baseline 1</td>
+      <td>0.4615</td>
+      <td>0.4660</td>
+      <td>0.2340</td>
+      <td>0.1603</td>
+    </tr>
+    <tr>
+      <td>Baseline 2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>0.1034</td>
+      <td>0.0767</td>
+    </tr>
+    <tr>
+      <td><strong>Temporal Model</strong></td>
+      <td><strong>0.5335</strong></td>
+      <td><strong>0.4857</strong></td>
+      <td><strong>0.2357</strong></td>
+      <td><strong>0.1624</strong></td>
+    </tr>
+  </table>
 
-  <div class="wrapper">
-    <hr>
+  <hr>
 
-    <!-- ── Abstract ─────────────────────────────────────────── -->
-    <h2 id="abstract">Abstract</h2>
+  <h2>Conclusion</h2>
+  <p>
+    Temporal modeling significantly improves performance over single-document models,
+    showing that modeling diagnostic progression across time is important.
+  </p>
 
-    <p>
-      This project focuses on predicting ICD (diagnosis codes) and CPT (procedure codes) from clinical records.
-      Existing methods do not fully use temporal information or data from multiple documents. Most models use only
-      a single document, such as a discharge summary, and do not capture changes in a patient's condition during
-      admission or important information from different clinical documents
-      (Mullenbach et al., 2018; Huang et al., 2022). Our goal is to solve this problem.
-    </p>
+  <hr>
 
-    <p>
-      As our initial approach, we organize the data at the admission level and design two baseline models for
-      comparison. Baseline 1 is a BioClinicalBERT-based (Alsentzer et al., 2019) multi-label classification model
-      that uses only a discharge summary as input. Baseline 2 combines multiple clinical documents, such as
-      discharge and radiology reports, to use more information. To handle long text more effectively, we use the
-      Longformer model (Beltagy et al., 2020).
-    </p>
+  <h2>Mentor Feedback</h2>
+  <p>
+    Key feedback emphasized comparing Baseline 2 and the temporal model to properly
+    evaluate the impact of temporal modeling.
+  </p>
 
-    <p>
-      In early experiments, Baseline 1 used 86,146 admissions and achieved Micro-F1 of 0.4615, Macro-F1 of
-      0.4660, Precision@5 of 0.2340, and Precision@8 of 0.1603. Baseline 2 used a smaller sample of 2,000
-      admissions and achieved Precision@5 of 0.1034 and Precision@8 of 0.0767.
-    </p>
+  <hr>
 
-    <p>
-      We also design a BioClinicalBERT + LSTM (Hochreiter and Schmidhuber, 1997) model to include temporal
-      reasoning by processing clinical documents in time order. This model used 101,655 admissions and achieved a
-      test Micro-F1 of <strong>0.5335</strong>, Macro-F1 of <strong>0.4857</strong>, Precision@5 of
-      <strong>0.2357</strong>, and Precision@8 of <strong>0.1624</strong> after 3 epochs of training,
-      outperforming Baseline 1 across all metrics.
-    </p>
+  <h2>Team Roles</h2>
+  <ul>
+    <li><strong>Woochang Shin:</strong> Baseline models, temporal model, webpage</li>
+    <li><strong>Jisun Kim:</strong> Baseline + temporal model, webpage updates</li>
+    <li><strong>Steven Hu:</strong> Data + preprocessing</li>
+    <li><strong>Samarth Kumar Samal:</strong> Evaluation and analysis</li>
+  </ul>
 
-    <hr>
+  <hr>
 
-    <!-- ── Teaser Figure ─────────────────────────────────────── -->
-    <h2 id="teaser">Teaser Figure</h2>
-    <div style="text-align: center;">
-      <img src="./files/figure1.png" alt="Overview of the temporal clinical reasoning framework"
-        style="max-width: 100%; height: auto;">
-    </div>
+  <!-- 🔥 추가된 부분 -->
+  <h2 id="additional-contributions">Additional Contributions</h2>
 
-    <hr>
+  <ul>
+    <li><strong>Woochang Shin:</strong>
+      <ul>
+        <li>Baseline Model 2: Longformer-based model</li>
+        <li>Temporal Model for joint ICD and CPT prediction</li>
+        <li>Project website development and maintenance</li>
+      </ul>
+    </li>
 
-    <!-- ── Introduction ──────────────────────────────────────── -->
-    <h2 id="introduction">Introduction / Background / Motivation</h2>
+    <li><strong>Jisun Kim:</strong>
+      <ul>
+        <li>Baseline Model 1: BioClinicalBERT note-level model</li>
+        <li>Temporal Model for ICD prediction</li>
+        <li>Project website maintenance and updates</li>
+      </ul>
+    </li>
 
-    <p>
-      The goal of this project is to automatically predict diagnosis codes (ICD) and procedure codes (CPT) from
-      clinical records to improve the efficiency of healthcare systems.
-    </p>
+    <li><strong>Steven Hu:</strong>
+      <ul>
+        <li>MIMIC data access</li>
+        <li>Data preprocessing</li>
+        <li>Model training and execution (ICD-only, CPT-only, and joint ICD+CPT models)</li>
+        <li>Result extraction and evaluation</li>
+      </ul>
+    </li>
 
-    <p>
-      Most existing automated coding systems use only a single document, such as a discharge summary, as input
-      (Mullenbach et al., 2018; Huang et al., 2022; Yang et al., 2022). However, in real clinical settings, a
-      patient's condition changes over time, and important information is spread across multiple documents, such
-      as radiology reports and other clinical notes.
-    </p>
+    <li><strong>Samarth Kumar Samal:</strong>
+      <ul>
+        <li>Project support</li>
+        <li>Project documentation</li>
+      </ul>
+    </li>
+  </ul>
 
-    <p>
-      Because of this, single-document approaches have clear limitations. Therefore, this study aims to address
-      these limitations to reduce the workload of medical staff and improve hospital efficiency.
-    </p>
-
-    <hr>
-
-    <!-- ── Approach ──────────────────────────────────────────── -->
-    <h2 id="approach">Approach</h2>
-
-    <p>
-      We designed two baseline models and one temporal model for initial performance comparison. Baseline 1 is a
-      single-document model that uses only a discharge summary as input. Baseline 2 is a multi-document model
-      that combines multiple clinical documents. Our temporal model processes multiple documents in time order to
-      reflect changes in the patient's condition during admission.
-    </p>
-
-    <p>
-      We used the following data. The <code>discharge.csv</code> file contains discharge summary notes and is
-      used as the main clinical text. The key columns are <code>hadm_id</code>, <code>charttime</code>, and
-      <code>text</code>. The <code>radiology.csv</code> file contains radiology reports, and its key columns are
-      <code>hadm_id</code>, <code>charttime</code>, and <code>text</code>.
-    </p>
-
-    <p>
-      To connect ICD labels, we used <code>diagnosis.csv</code> and <code>edstays.csv</code>. The
-      <code>stay_id</code> in <code>diagnosis.csv</code> is linked to <code>hadm_id</code> through
-      <code>edstays.csv</code>, which allows us to match admissions with ICD codes.
-    </p>
-
-    <h3>Baseline 1</h3>
-    <p>
-      In Baseline 1, we built a model that predicts ICD codes from only one discharge summary. We matched notes
-      and labels using <code>hadm_id</code> and collected 86,146 admissions. The model is based on
-      BioClinicalBERT (Alsentzer et al., 2019), and we added a dropout layer and a linear classification head
-      to predict the presence of the top 50 ICD codes. The data were split into Train, Validation, and Test sets
-      as 60,302 / 12,922 / 12,922. This baseline is simple and stable, but it cannot use the many kinds of
-      clinical information created during admission.
-    </p>
-
-    <h3>Baseline 2</h3>
-    <p>
-      In Baseline 2, we designed a multi-document model to use more information. For each admission, discharge
-      and radiology documents were grouped by <code>hadm_id</code> and sorted by <code>charttime</code>. The
-      documents were then merged into a single long text input. We used a Longformer-based (Beltagy et al., 2020)
-      multi-label classification model to predict 50 ICD codes. This approach uses more information than a
-      single-document model and reflects the structure of clinical data. However, in early experiments, it used
-      a small dataset and simple document merging, so it could not capture temporal relationships.
-    </p>
-
-    <h3>Temporal Model</h3>
-    <p>
-      In our temporal model, we explicitly include temporal reasoning by processing multiple documents in time
-      order within the same <code>hadm_id</code>. Radiology notes and discharge summaries are sorted by
-      <code>charttime</code>, and up to five notes are used as one sequence for each admission. Each document is
-      first encoded with BioClinicalBERT (Alsentzer et al., 2019), and then a two-layer unidirectional LSTM
-      (Hochreiter and Schmidhuber, 1997) models the patient's state changes across time. Using this structure,
-      we collected 101,655 admissions and split them into Train / Validation / Test as 71,158 / 15,248 / 15,249.
-    </p>
-
-    <h3>Challenges</h3>
-    <p>
-      There were several implementation challenges. In Baseline 1, there was an ID mismatch problem when
-      connecting <code>discharge.csv</code> and <code>diagnosis.csv</code>. Because discharge notes and ICD
-      tables did not directly share the same ID format, we used <code>edstays.csv</code> as a bridge to convert
-      <code>stay_id</code> into <code>hadm_id</code>. In Baseline 2 and the temporal model, it was also
-      important to keep data consistency while merging multiple files. In addition, input length became much
-      larger when documents were combined or processed as sequences, which increased memory usage.
-    </p>
-    <p>
-      To handle this, in the temporal model we limited the maximum number of notes per admission to five
-      (MAX_NOTES&nbsp;=&nbsp;5) and used a batch size of 8 so that training could fit within GPU memory.
-    </p>
-
-    <hr>
-
-    <!-- ── Results ───────────────────────────────────────────── -->
-    <h2 id="results">Results</h2>
-
-    <p>
-      We evaluated model performance in a multi-label classification setting using Micro F1, Macro F1, and
-      Precision@K (Zhang and Zhou, 2014). In multi-label medical coding, a single patient may have multiple ICD
-      codes at the same time, making it important to evaluate not only overall prediction accuracy but also the
-      precision of top-ranked predictions.
-    </p>
-
-    <p>
-      Baseline 1 used only discharge summaries and achieved a Micro F1 of 0.4615. Baseline 2 used both discharge
-      and radiology data but achieved lower performance. This reflects the small sample size (1,171 admissions
-      after preprocessing and label filtering), as well as the simple document concatenation approach, which does
-      not model temporal relationships between documents.
-    </p>
-
-    <p>
-      In contrast, our temporal model outperformed Baseline 1 across all metrics, achieving a test Micro F1 of
-      0.5335 (+7.2 percentage points). Training loss decreased steadily across epochs
-      (0.1103 &rarr; 0.0733 &rarr; 0.0654), and validation Micro F1 improved consistently
-      (0.4636 &rarr; 0.5089 &rarr; 0.5373), confirming that temporal reasoning over multiple clinical notes
-      provides meaningful signal beyond single-document classification.
-    </p>
-
-    <p>
-      Both models showed more stable predictions on frequent ICD codes, while prediction errors were more common
-      on rare or complex diagnoses. The Macro F1 of our temporal model (0.4857) indicates that performance on
-      rare ICD codes remains limited, which we plan to address in future work.
-    </p>
-
-    <p>
-      Baseline 2 could not capture relationships between documents because it simply merged multiple notes into
-      one text. In contrast, the temporal model processed notes in chronological order using an LSTM
-      (Hochreiter and Schmidhuber, 1997), which allowed it to model diagnostic progression across the admission
-      period.
-    </p>
-
-    <p>
-      The number of admissions used in each model differs due to input structure and computation constraints.
-      Baseline 2 required longer input sequences for the Longformer (Beltagy et al., 2020), and GPU memory
-      constraints required training on a smaller sampled dataset. Because of this, these results should be seen
-      as preliminary findings that show the strengths and limits of each model structure, rather than a perfectly
-      fair comparison. In future work, we plan to compare the models under the same data setting.
-    </p>
-
-    <table>
-      <thead>
-        <tr>
-          <th style="text-align: center;"><strong>Model</strong></th>
-          <th style="text-align: center;"><strong>Input</strong></th>
-          <th style="text-align: center;"><strong># Admissions</strong></th>
-          <th style="text-align: center;"><strong>Micro F1</strong></th>
-          <th style="text-align: center;"><strong>Macro F1</strong></th>
-          <th style="text-align: center;"><strong>P@5</strong></th>
-          <th style="text-align: center;"><strong>P@8</strong></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="text-align: center;">Baseline 1<br>(BioClinicalBERT)</td>
-          <td style="text-align: center;">discharge only</td>
-          <td style="text-align: center;">86,146</td>
-          <td style="text-align: center;">0.4615</td>
-          <td style="text-align: center;">0.4660</td>
-          <td style="text-align: center;">0.2340</td>
-          <td style="text-align: center;">0.1603</td>
-        </tr>
-        <tr>
-          <td style="text-align: center;">Baseline 2<br>(Longformer, sampled)</td>
-          <td style="text-align: center;">discharge + radiology</td>
-          <td style="text-align: center;">1,171</td>
-          <td style="text-align: center;">—</td>
-          <td style="text-align: center;">—</td>
-          <td style="text-align: center;">0.1034</td>
-          <td style="text-align: center;">0.0767</td>
-        </tr>
-        <tr style="background-color: #f0f7ff;">
-          <td style="text-align: center;"><strong>Our Model<br>(Temporal BERT+LSTM)</strong></td>
-          <td style="text-align: center;">discharge + radiology</td>
-          <td style="text-align: center;">101,655</td>
-          <td style="text-align: center;"><strong>0.5335</strong></td>
-          <td style="text-align: center;"><strong>0.4857</strong></td>
-          <td style="text-align: center;"><strong>0.2357</strong></td>
-          <td style="text-align: center;"><strong>0.1624</strong></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <hr>
-
-    <!-- ── Conclusion ────────────────────────────────────────── -->
-    <h2 id="conclusion">Conclusion and Future Work</h2>
-
-    <p>
-      In this study, we addressed the problem of predicting ICD codes from clinical records and compared a
-      single-document baseline, a multi-document baseline, and a temporal model. Baseline 1 was designed as the
-      simplest model using only a discharge summary, while Baseline 2 tested whether using more documents could
-      improve performance. Our temporal model was designed to process documents in time order with an LSTM
-      (Hochreiter and Schmidhuber, 1997) so that it can better reflect changes in the patient's condition over
-      time.
-    </p>
-
-    <p>
-      We built the models step by step in order to clearly test the effect of temporal modeling. Baseline 1
-      helped us measure how much can be predicted from a single document. Baseline 2 helped us check whether
-      using more information alone could improve performance. The results show that simple document merging is
-      not sufficient, and that explicitly modeling time order provides a meaningful advantage.
-    </p>
-
-    <p>
-      Our temporal model demonstrated clear improvement over the single-document baseline, achieving a test Micro
-      F1 of 0.5335 compared to 0.4615 for Baseline 1 (+7.2 percentage points). This confirms that modeling
-      diagnostic progression across multiple clinical notes captures complementary information that a single
-      discharge summary cannot provide. The lower Macro F1 indicates that performance on rare ICD codes remains
-      limited, which we plan to address in future work.
-    </p>
-
-    <p>
-      At the current stage, we focus on ICD prediction to confirm the stability of the modeling pipeline. We
-      plan to extend the final model to CPT code prediction as well. Approaches that rely only on discharge
-      summaries do not fully reflect patient state changes across time (Mullenbach et al., 2018), so future
-      models should make better use of clinical data created at different time points.
-    </p>
-
-    <p>Future work will focus on the following directions:</p>
-    <ol>
-      <li>Add structured data such as lab results, vital signs, and medications as additional inputs</li>
-      <li>Introduce preprocessing methods to detect copy-forward problems and remove repeated information</li>
-      <li>Extend the system from ICD prediction to joint ICD and CPT prediction</li>
-      <li>Fully train Baseline 2 (Longformer) on a larger dataset and perform a fairer comparison across all models</li>
-    </ol>
-
-    <hr>
-
-    <!-- ── References ────────────────────────────────────────── -->
-    <h2 id="references">References</h2>
-    <ul style="line-height: 2;">
-      <li>Alsentzer, E., Murphy, J., Boag, W., Weng, W.-H., Jindi, D., Naumann, T., and McDermott, M. (2019). Publicly Available Clinical BERT Embeddings. <em>Proceedings of the 2nd Clinical Natural Language Processing Workshop</em>.</li>
-      <li>Beltagy, I., Peters, M. E., and Cohan, A. (2020). Longformer: The Long-Document Transformer. <em>arXiv:2004.05150</em>.</li>
-      <li>Hochreiter, S., and Schmidhuber, J. (1997). Long Short-Term Memory. <em>Neural Computation</em>, 9(8), 1735–1780.</li>
-      <li>Huang, C. W., Tsai, S. C., and Chen, Y. N. (2022). Hierarchical Label-wise Attention Transformer Model for Explainable ICD Coding. <em>arXiv:2204.10716</em>.</li>
-      <li>Mullenbach, J., Wiegreffe, S., Duke, J., Sun, J., and Eisenstein, J. (2018). Explainable Prediction of Medical Codes from Clinical Text. <em>Proceedings of NAACL-HLT 2018</em>.</li>
-      <li>Yang, Z., Shi, J., Lei, D., Liu, J., and Li, Y. (2022). TransICD: Transformer Based Code-wise Attention Model for Explainable ICD Coding. <em>arXiv:2104.10652</em>.</li>
-      <li>Zhang, M. L., and Zhou, Z. H. (2014). A Review on Multi-Label Learning Algorithms. <em>IEEE Transactions on Knowledge and Data Engineering</em>, 26(8), 1819–1837.</li>
-    </ul>
-
-    <hr>
-
-<h2 id="mentor-feedback">Mentor Feedback & Progress</h2>
-
-<h3>1. Summary of Mentor Feedback</h3>
-<p>
-The mentor emphasized that comparing only Baseline 1 and the temporal model is not sufficient. Since using multiple documents naturally improves performance, the key comparison should be between Baseline 2 (multi-document without temporal ordering) and the temporal model. This helps clearly demonstrate whether incorporating temporal information truly improves performance.
-</p>
-
-<p>
-The mentor also suggested increasing the dataset size for Baseline 2 to improve the reliability and confidence of the results. In addition, due to the length of clinical documents and token limitations, we currently use a limited number of notes. The mentor recommended exploring possible approaches such as input compression or keyword filtering, while also noting that it is acceptable to clearly state these limitations in the project.
-</p>
-
-<p>
-Overall, the mentor commented that the project is making good progress and is on track for the final presentation.
-</p>
-
-<h3>2. Plan to Address Feedback</h3>
-<p>
-Based on the mentor’s feedback, we plan to strengthen our experiments on Baseline 2 by increasing the dataset size and improving the reliability of the results. We will focus on a clear comparison between Baseline 2 and the temporal model to validate our main claim that temporal modeling provides additional value.
-</p>
-
-<p>
-We will also clearly describe system limitations, such as token constraints and the limited number of notes, in our final report. If time allows, we will explore simple techniques such as input compression or filtering methods to incorporate more document information into the model.
-</p>
-
-<h3>3. Team Roles / Intermediate Progress</h3>
-<ul>
-  <li><strong>Woochang Shin:</strong> Implemented Baseline 1 and Baseline 2 models, and developed and wrote the project webpage.</li>
-  <li><strong>Jisun Kim:</strong> Implemented Baseline 1 and the temporal model, and contributed to editing the project webpage.</li>
-  <li><strong>Samarth Kumar Samal:</strong> conducted model evaluation and performance comparison.</li>
-  <li><strong>Steven Hu:</strong> Provided the dataset and is working on data preprocessing (in progress).</li>
-</ul>
-
-    
-  </div>
+</div>
 
 </body>
 </html>
