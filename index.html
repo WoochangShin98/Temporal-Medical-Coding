@@ -394,16 +394,86 @@ Based on the mentor’s feedback, we plan to strengthen our experiments on Basel
 We will also clearly describe system limitations, such as token constraints and the limited number of notes, in our final report. If time allows, we will explore simple techniques such as input compression or filtering methods to incorporate more document information into the model.
 </p>
 
-<h3>3. Team Roles / Intermediate Progress</h3>
+<hr>
+
+<hr>
+
+<h2 id="poster-contributions">Contributions</h2>
+
 <ul>
-  <li><strong>Woochang Shin:</strong> Implemented Baseline 1 and Baseline 2 models, and developed and wrote the project webpage.</li>
-  <li><strong>Jisun Kim:</strong> Implemented Baseline 1 and the temporal model, and contributed to editing the project webpage.</li>
-  <li><strong>Samarth Kumar Samal:</strong> conducted model evaluation and performance comparison.</li>
-  <li><strong>Steven Hu:</strong> Provided the dataset and is working on data preprocessing (in progress).</li>
+  <li>Propose a temporal multi-note encoding framework using BioClinicalBERT + LSTM to model diagnostic progression across a hospital admission</li>
+  <li>Jointly predict ICD and CPT codes in a unified multi-label framework</li>
+  <li>Evaluate the framework on MIMIC and demonstrate improvements over single-note baselines</li>
 </ul>
 
 <hr>
 
+<h2 id="poster-results">Experimental Results</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>ICD Micro F1</th>
+      <th>ICD P@5</th>
+      <th>CPT Micro F1</th>
+      <th>CPT P@5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Baseline 1 (BioClinicalBERT)</td>
+      <td>0.4342</td>
+      <td>0.4229</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Baseline 2 (Longformer)</td>
+      <td>0.4051</td>
+      <td>0.3977</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Temporal (BERT+LSTM)</td>
+      <td><strong>0.5018</strong></td>
+      <td><strong>0.4712</strong></td>
+      <td>0.5018</td>
+      <td>0.4924</td>
+    </tr>
+    <tr>
+      <td>Temporal (ICD + CPT)</td>
+      <td><strong>0.5018</strong></td>
+      <td><strong>0.4712</strong></td>
+      <td><strong>0.6024</strong></td>
+      <td><strong>0.4924</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="main-findings">Main Findings</h2>
+
+<ul>
+  <li>Temporal multi-note modeling improves ICD prediction (0.4615 → 0.5335, +7.2pp)</li>
+  <li>Joint ICD and CPT prediction is feasible within a single framework</li>
+  <li>CPT prediction is more consistent than ICD (AUC difference observed)</li>
+  <li>Increasing note coverage improves top-k prediction accuracy</li>
+</ul>
+
+<hr>
+
+<h2 id="limitations">Limitations</h2>
+
+<ul>
+  <li>Limited to top frequent ICD/CPT codes → weak performance on rare codes</li>
+  <li>Maximum 5 notes per admission → potential information loss</li>
+  <li>LSTM struggles with long-range dependencies</li>
+</ul>
+
+    
 <h2 id="additional-contributions">(Additional) Contributions</h2>
 
 <ul>
