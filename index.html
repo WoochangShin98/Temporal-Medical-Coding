@@ -1,145 +1,146 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NLP Class Project | Spring 2026 CSCI 5541 | University of Minnesota</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NLP Class Project | Spring 2026 CSCI 5541 | University of Minnesota</title>
 
-  <link rel="stylesheet" href="./files/bulma.min.css" />
-  <link rel="stylesheet" href="./files/styles.css">
+<link rel="stylesheet" href="./files/bulma.min.css" />
+<link rel="stylesheet" href="./files/styles.css">
 </head>
 
 <body>
 
+<div>
 <div class="wrapper">
 
-  <h1>Temporal Clinical Reasoning for Medical Coding</h1>
-  <h4>Spring 2026 CSCI 5541 NLP: Class Project - University of Minnesota</h4>
-  <h4>Stack OverFlowers</h4>
+<h1 style="font-family: 'Lato', sans-serif;">Temporal Clinical Reasoning for Medical Coding</h1>
+<h4>Spring 2026 CSCI 5541 NLP: Class Project - University of Minnesota</h4>
+<h4>Stack OverFlowers</h4>
 
-  <hr>
+<hr>
 
-  <h2>Abstract</h2>
-  <p>
-    This project predicts ICD and CPT codes from clinical records using temporal modeling.
-    Unlike traditional methods that use a single document, our approach models multiple
-    clinical notes over time using BioClinicalBERT and LSTM.
-  </p>
+<h2>Abstract</h2>
+<p>
+This project focuses on predicting ICD (diagnosis codes) and CPT (procedure codes) from clinical records.
+We model temporal clinical reasoning using BioClinicalBERT and LSTM.
+</p>
 
-  <hr>
+<hr>
 
-  <h2>Approach</h2>
-  <p>
-    We compare two baselines and one temporal model:
-  </p>
+<h2>Approach</h2>
+<p>We compare two baselines and one temporal model.</p>
 
-  <ul>
-    <li><strong>Baseline 1:</strong> Single discharge summary (BioClinicalBERT)</li>
-    <li><strong>Baseline 2:</strong> Multi-document (Longformer)</li>
-    <li><strong>Temporal Model:</strong> BioClinicalBERT + LSTM with time ordering</li>
-  </ul>
+<ul>
+<li><strong>Baseline 1:</strong> BioClinicalBERT (single note)</li>
+<li><strong>Baseline 2:</strong> Longformer (multi-document)</li>
+<li><strong>Temporal Model:</strong> BioClinicalBERT + LSTM</li>
+</ul>
 
-  <hr>
+<hr>
 
-  <h2>Results</h2>
+<h2>Results</h2>
 
-  <table border="1" style="width:100%; text-align:center;">
-    <tr>
-      <th>Model</th>
-      <th>Micro F1</th>
-      <th>Macro F1</th>
-      <th>P@5</th>
-      <th>P@8</th>
-    </tr>
-    <tr>
-      <td>Baseline 1</td>
-      <td>0.4615</td>
-      <td>0.4660</td>
-      <td>0.2340</td>
-      <td>0.1603</td>
-    </tr>
-    <tr>
-      <td>Baseline 2</td>
-      <td>-</td>
-      <td>-</td>
-      <td>0.1034</td>
-      <td>0.0767</td>
-    </tr>
-    <tr>
-      <td><strong>Temporal Model</strong></td>
-      <td><strong>0.5335</strong></td>
-      <td><strong>0.4857</strong></td>
-      <td><strong>0.2357</strong></td>
-      <td><strong>0.1624</strong></td>
-    </tr>
-  </table>
+<table border="1" style="width:100%; text-align:center;">
+<tr>
+<th>Model</th>
+<th>Micro F1</th>
+<th>Macro F1</th>
+<th>P@5</th>
+<th>P@8</th>
+</tr>
 
-  <hr>
+<tr>
+<td>Baseline 1</td>
+<td>0.4615</td>
+<td>0.4660</td>
+<td>0.2340</td>
+<td>0.1603</td>
+</tr>
 
-  <h2>Conclusion</h2>
-  <p>
-    Temporal modeling significantly improves performance over single-document models,
-    showing that modeling diagnostic progression across time is important.
-  </p>
+<tr>
+<td>Baseline 2</td>
+<td>-</td>
+<td>-</td>
+<td>0.1034</td>
+<td>0.0767</td>
+</tr>
 
-  <hr>
+<tr>
+<td><strong>Temporal Model</strong></td>
+<td><strong>0.5335</strong></td>
+<td><strong>0.4857</strong></td>
+<td><strong>0.2357</strong></td>
+<td><strong>0.1624</strong></td>
+</tr>
+</table>
 
-  <h2>Mentor Feedback</h2>
-  <p>
-    Key feedback emphasized comparing Baseline 2 and the temporal model to properly
-    evaluate the impact of temporal modeling.
-  </p>
+<hr>
 
-  <hr>
+<h2>Conclusion</h2>
+<p>
+Temporal modeling improves performance and captures clinical progression.
+</p>
 
-  <h2>Team Roles</h2>
-  <ul>
-    <li><strong>Woochang Shin:</strong> Baseline models, temporal model, webpage</li>
-    <li><strong>Jisun Kim:</strong> Baseline + temporal model, webpage updates</li>
-    <li><strong>Steven Hu:</strong> Data + preprocessing</li>
-    <li><strong>Samarth Kumar Samal:</strong> Evaluation and analysis</li>
-  </ul>
+<hr>
 
-  <hr>
+<h2>Mentor Feedback</h2>
+<p>
+We will compare Baseline 2 and the temporal model more carefully and expand dataset size.
+</p>
 
-  <!-- 🔥 추가된 부분 -->
-  <h2 id="additional-contributions">Additional Contributions</h2>
+<hr>
 
-  <ul>
-    <li><strong>Woochang Shin:</strong>
-      <ul>
-        <li>Baseline Model 2: Longformer-based model</li>
-        <li>Temporal Model for joint ICD and CPT prediction</li>
-        <li>Project website development and maintenance</li>
-      </ul>
-    </li>
+<h2>Team Roles</h2>
 
-    <li><strong>Jisun Kim:</strong>
-      <ul>
-        <li>Baseline Model 1: BioClinicalBERT note-level model</li>
-        <li>Temporal Model for ICD prediction</li>
-        <li>Project website maintenance and updates</li>
-      </ul>
-    </li>
+<ul>
+<li><strong>Woochang Shin:</strong> Baseline models, temporal model, webpage</li>
+<li><strong>Jisun Kim:</strong> Baseline + temporal model, webpage updates</li>
+<li><strong>Steven Hu:</strong> Data access, preprocessing</li>
+<li><strong>Samarth Kumar Samal:</strong> Evaluation and documentation</li>
+</ul>
 
-    <li><strong>Steven Hu:</strong>
-      <ul>
-        <li>MIMIC data access</li>
-        <li>Data preprocessing</li>
-        <li>Model training and execution (ICD-only, CPT-only, and joint ICD+CPT models)</li>
-        <li>Result extraction and evaluation</li>
-      </ul>
-    </li>
+<hr>
 
-    <li><strong>Samarth Kumar Samal:</strong>
-      <ul>
-        <li>Project support</li>
-        <li>Project documentation</li>
-      </ul>
-    </li>
-  </ul>
+<!-- 🔥 여기 추가된 부분 -->
+<h2 id="additional-contributions">Additional Contributions</h2>
 
+<ul>
+<li><strong>Woochang Shin:</strong>
+<ul>
+<li>Baseline Model 2: Longformer-based model</li>
+<li>Temporal Model for joint ICD and CPT prediction</li>
+<li>Project website development and maintenance</li>
+</ul>
+</li>
+
+<li><strong>Jisun Kim:</strong>
+<ul>
+<li>Baseline Model 1: BioClinicalBERT note-level model</li>
+<li>Temporal Model for ICD prediction</li>
+<li>Project website maintenance and updates</li>
+</ul>
+</li>
+
+<li><strong>Steven Hu:</strong>
+<ul>
+<li>MIMIC data access</li>
+<li>Data preprocessing</li>
+<li>Model training and execution (ICD-only, CPT-only, and joint ICD+CPT models)</li>
+<li>Result extraction and evaluation</li>
+</ul>
+</li>
+
+<li><strong>Samarth Kumar Samal:</strong>
+<ul>
+<li>Project support</li>
+<li>Project documentation</li>
+</ul>
+</li>
+</ul>
+
+</div>
 </div>
 
 </body>
