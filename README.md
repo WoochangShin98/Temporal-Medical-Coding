@@ -178,9 +178,9 @@ Future work will focus on:
   - Project report 
     
 - **Samarth Kumar Samal**
-  - Model 1 (BioClinicalBERT) support  
-  - Model 2 (Longformer) support  
-  - Model 3 (Temporal / Joint Model) support  
+  - Model 1 (BioClinicalBERT) for joint ICD and CPT Prediction
+  - Model 2 (Longformer) for joint ICD and CPT Prediction
+  - Model 3 (Temporal / Joint Model) for joint ICD and CPT Prediction Support
 
 ---
 
