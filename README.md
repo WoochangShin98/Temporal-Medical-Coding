@@ -159,23 +159,22 @@ Future work will focus on:
 ## Contributions
 
 - **Woochang Shin**
-  - Baseline Model 2: Longformer-based model
-  - Temporal Model for joint ICD and CPT prediction
+  - Initial and final development of Baseline Model 2 (Longformer) for clinical code prediction
+  - Initial and final development of the temporal model for joint ICD and CPT prediction
   - Project website development and maintenance
-  - Project Poster
-    
+  - Project poster, documentation
+
 - **Jisun Kim**
-  - Baseline Model 1: BioClinicalBERT note-level model
-  - Temporal Model for ICD prediction
+  - Initial and final development of Baseline Model 1 (BioClinicalBERT) note-level model
+  - Initial and final development of the temporal model for joint ICD and CPT prediction
   - Project website maintenance and updates
-  - Project documentation 
+  - Project report, documentation
 
 - **Steven Hu**
-  - MIMIC data access
-  - Data preprocessing
-  - Model training and execution (ICD-only, CPT-only, and joint ICD+CPT models)
+  - MIMIC data access and preprocessing
+  - Model training and execution (ICD-only, CPT-only, and joint ICD+CPT)
   - Result extraction and evaluation
-  - Project report 
+  - Project report, documentation
     
 - **Samarth Kumar Samal**
   - Model 1 (BioClinicalBERT) for joint ICD and CPT Prediction
