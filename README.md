@@ -164,7 +164,7 @@ Future work will focus on:
   - Project website development and maintenance
   - Project Poster and report writing support
     
-  - **Jisun Kim**
+- **Jisun Kim**
   - Baseline Model 1: BioClinicalBERT note-level model
   - Temporal Model for ICD prediction
   - Project website maintenance and updates
