@@ -199,93 +199,109 @@
       we collected 101,655 admissions and split them into Train / Validation / Test as 71,158 / 15,248 / 15,249.
     </p>
 
-    <h3>Challenges</h3>
-    <p>
-      There were several implementation challenges. In Baseline 1, there was an ID mismatch problem when
-      connecting <code>discharge.csv</code> and <code>diagnosis.csv</code>. Because discharge notes and ICD
-      tables did not directly share the same ID format, we used <code>edstays.csv</code> as a bridge to convert
-      <code>stay_id</code> into <code>hadm_id</code>. In Baseline 2 and the temporal model, it was also
-      important to keep data consistency while merging multiple files. In addition, input length became much
-      larger when documents were combined or processed as sequences, which increased memory usage.
-    </p>
-    <p>
-      To handle this, in the temporal model we limited the maximum number of notes per admission to five
-      (MAX_NOTES&nbsp;=&nbsp;5) and used a batch size of 8 so that training could fit within GPU memory.
-    </p>
-
     <hr>
 
-    <!-- ── Results ───────────────────────────────────────────── -->
+<!-- ── Results ───────────────────────────────────────────── -->
 <h2 id="results">Results</h2>
 
 <p>
-We evaluate the model under a multi-label classification setting using Micro F1, Macro F1, and Precision@5.
-These metrics measure overall performance, sensitivity to rare codes, and the quality of top-ranked predictions.
+We evaluated the models under ICD-only, CPT-only, and joint ICD+CPT prediction settings.
+The results show that temporal multi-note modeling is effective for clinical code prediction,
+especially when diagnosis and procedure codes are predicted within a unified framework.
 </p>
 
-<p>
-Temporal multi-note modeling significantly improves ICD prediction compared to single-note baselines. The
-proposed model improves Micro-F1 from 0.4615 to <strong>0.5335</strong> (+7.2 percentage points), demonstrating
-that modeling longitudinal clinical information provides substantial gains over static approaches.
-</p>
-
-<p>
-In addition, the model supports joint ICD and CPT prediction within a unified framework. CPT prediction shows
-more consistent performance than ICD, likely due to stronger procedural patterns present in clinical notes.
-</p>
-
-<p>
-We also observe that increasing the number of notes per admission improves prediction quality, particularly
-for top-ranked predictions, highlighting the importance of capturing temporal progression.
-</p>
-
-<table>
+<table border="1" cellpadding="6" cellspacing="0">
 <thead>
 <tr>
-<th style="text-align: center;"><strong>Model</strong></th>
-<th style="text-align: center;"><strong>Input</strong></th>
-<th style="text-align: center;"><strong># Admissions</strong></th>
-<th style="text-align: center;"><strong>Micro F1</strong></th>
-<th style="text-align: center;"><strong>Macro F1</strong></th>
-<th style="text-align: center;"><strong>P@5</strong></th>
-<th style="text-align: center;"><strong>P@8</strong></th>
+  <th style="text-align: center;"><strong>Model</strong></th>
+  <th style="text-align: center;"><strong>ICD Micro F1</strong></th>
+  <th style="text-align: center;"><strong>ICD P@5</strong></th>
+  <th style="text-align: center;"><strong>CPT Micro F1</strong></th>
+  <th style="text-align: center;"><strong>CPT P@5</strong></th>
+  <th style="text-align: center;"><strong>Task</strong></th>
 </tr>
 </thead>
 
 <tbody>
-
 <tr>
-<td style="text-align: center;">Baseline 1<br>(BioClinicalBERT)</td>
-<td style="text-align: center;">discharge only</td>
-<td style="text-align: center;">86,146</td>
-<td style="text-align: center;">0.4615</td>
-<td style="text-align: center;">0.4660</td>
-<td style="text-align: center;">0.2340</td>
-<td style="text-align: center;">0.1603</td>
+  <td style="text-align: center;">Baseline 1<br>(BioClinicalBERT)</td>
+  <td style="text-align: center;">0.4342</td>
+  <td style="text-align: center;">0.4229</td>
+  <td style="text-align: center;">—</td>
+  <td style="text-align: center;">—</td>
+  <td style="text-align: center;">ICD only</td>
 </tr>
 
 <tr>
-<td style="text-align: center;">Baseline 2<br>(Longformer)</td>
-<td style="text-align: center;">discharge + radiology</td>
-<td style="text-align: center;">1,171</td>
-<td style="text-align: center;">—</td>
-<td style="text-align: center;">—</td>
-<td style="text-align: center;">0.1034</td>
-<td style="text-align: center;">0.0767</td>
+  <td style="text-align: center;">Baseline 1<br>(BioClinicalBERT)</td>
+  <td style="text-align: center;">—</td>
+  <td style="text-align: center;">—</td>
+  <td style="text-align: center;">0.5373</td>
+  <td style="text-align: center;">0.4643</td>
+  <td style="text-align: center;">CPT only</td>
+</tr>
+
+<tr>
+  <td style="text-align: center;">Baseline 2<br>(Longformer-based)</td>
+  <td style="text-align: center;">0.4051</td>
+  <td style="text-align: center;">0.3977</td>
+  <td style="text-align: center;">—</td>
+  <td style="text-align: center;">—</td>
+  <td style="text-align: center;">ICD only</td>
+</tr>
+
+<tr>
+  <td style="text-align: center;">Baseline 2<br>(Longformer-based)</td>
+  <td style="text-align: center;">—</td>
+  <td style="text-align: center;">—</td>
+  <td style="text-align: center;">0.5612</td>
+  <td style="text-align: center;">0.4717</td>
+  <td style="text-align: center;">CPT only</td>
+</tr>
+
+<tr>
+  <td style="text-align: center;">Temporal<br>(BERT+LSTM)</td>
+  <td style="text-align: center;">0.5018</td>
+  <td style="text-align: center;">0.4712</td>
+  <td style="text-align: center;">—</td>
+  <td style="text-align: center;">—</td>
+  <td style="text-align: center;">ICD only</td>
+</tr>
+
+<tr>
+  <td style="text-align: center;">Temporal<br>(BERT+LSTM)</td>
+  <td style="text-align: center;">—</td>
+  <td style="text-align: center;">—</td>
+  <td style="text-align: center;">0.5018</td>
+  <td style="text-align: center;">0.4924</td>
+  <td style="text-align: center;">CPT only</td>
 </tr>
 
 <tr style="background-color: #f0f7ff;">
-<td style="text-align: center;"><strong>Temporal Model<br>(BERT+LSTM)</strong></td>
-<td style="text-align: center;">discharge + radiology</td>
-<td style="text-align: center;">101,655</td>
-<td style="text-align: center;"><strong>0.5335</strong></td>
-<td style="text-align: center;"><strong>0.4857</strong></td>
-<td style="text-align: center;"><strong>0.2357</strong></td>
-<td style="text-align: center;"><strong>0.1624</strong></td>
+  <td style="text-align: center;"><strong>Temporal<br>(BERT+LSTM)</strong></td>
+  <td style="text-align: center;"><strong>0.5018</strong></td>
+  <td style="text-align: center;"><strong>0.4712</strong></td>
+  <td style="text-align: center;"><strong>0.6024</strong></td>
+  <td style="text-align: center;"><strong>0.4924</strong></td>
+  <td style="text-align: center;"><strong>ICD + CPT</strong></td>
 </tr>
-
 </tbody>
 </table>
+
+<ul>
+  <li><strong>Micro F1:</strong> measures overall prediction performance across all samples.</li>
+  <li><strong>Macro F1:</strong> reflects average performance across all codes and is sensitive to rare classes.</li>
+  <li><strong>Precision@5:</strong> evaluates how many correct labels appear within the top-5 predictions.</li>
+</ul>
+
+<h3>Main Findings</h3>
+
+<ul>
+  <li>Temporal multi-note modeling outperforms the single-note baseline on ICD prediction.</li>
+  <li>Joint ICD and CPT prediction is feasible within a single temporal framework.</li>
+  <li>CPT codes are predicted more consistently than ICD codes, likely due to stronger procedural patterns in clinical notes.</li>
+  <li>Increasing note coverage from 1 to 5 notes per admission improves top-ranked prediction accuracy.</li>
+</ul>
 
 <h3>Analysis</h3>
 
@@ -300,9 +316,9 @@ CPT prediction is more consistent than ICD, likely due to stronger procedural pa
 In addition, increasing the number of notes improves top-ranked prediction accuracy, highlighting the
 importance of modeling temporal progression.
 </p>
-
+<hr>
 <!-- ── Conclusion ────────────────────────────────────────── -->
-<h2 id="conclusion">Conclusion and Future Work</h2>
+<h2 id="conclusion">Limitation and Future Work</h2>
 
 <p>
 This work demonstrates that temporal modeling of clinical notes significantly improves ICD and CPT prediction
@@ -344,8 +360,6 @@ sampling strategies, and exploring transformer-based temporal models to better c
       <li>Yang, Z., Shi, J., Lei, D., Liu, J., and Li, Y. (2022). TransICD: Transformer Based Code-wise Attention Model for Explainable ICD Coding. <em>arXiv:2104.10652</em>.</li>
       <li>Zhang, M. L., and Zhou, Z. H. (2014). A Review on Multi-Label Learning Algorithms. <em>IEEE Transactions on Knowledge and Data Engineering</em>, 26(8), 1819–1837.</li>
     </ul>
-
-    <hr>
     
 </body>
 </html>
