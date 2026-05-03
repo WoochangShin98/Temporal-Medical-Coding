@@ -72,7 +72,7 @@
 </a>
           </span>
           <span class="link-block">
-            <a href="https://github.com/WoochangShin98/Temporal-Medical-Coding/tree/main/src"
+            <a href="https://github.com/WoochangShin98/Temporal-Medical-Coding/tree/main/results"
               target="_blank" class="external-link button is-normal is-rounded is-dark is-outlined">
               <span>Model Weights</span>
             </a>
@@ -405,41 +405,114 @@ and should be interpreted separately from the main results section.
 </p>
 
 <p>
-In addition to the main results, we further evaluated our models under multiple settings, including
-ICD-only, CPT-only, and joint ICD+CPT prediction. These experiments provide a more comprehensive
-understanding of the model’s performance across different tasks and validate the effectiveness of
-temporal modeling beyond a single evaluation setup.
+In addition to the main results, we evaluated our models under multiple settings, including 
+ICD-only, CPT-only, and joint ICD+CPT prediction. These experiments provide a more comprehensive 
+understanding of model behavior across different tasks and further validate the effectiveness 
+of temporal modeling.
+</p>
+
+<h4>Experimental Results</h4>
+
+<table border="1" cellpadding="6" cellspacing="0">
+<tr>
+  <th>Model</th>
+  <th>Task</th>
+  <th>ICD Micro F1</th>
+  <th>ICD P@5</th>
+  <th>CPT Micro F1</th>
+  <th>CPT P@5</th>
+</tr>
+
+<tr>
+  <td>BioClinicalBERT (Baseline 1)</td>
+  <td>ICD only</td>
+  <td>0.4342</td>
+  <td>0.4229</td>
+  <td>—</td>
+  <td>—</td>
+</tr>
+
+<tr>
+  <td>BioClinicalBERT (Baseline 1)</td>
+  <td>CPT only</td>
+  <td>—</td>
+  <td>—</td>
+  <td>0.5373</td>
+  <td>0.4643</td>
+</tr>
+
+<tr>
+  <td>Longformer (Baseline 2)</td>
+  <td>ICD only</td>
+  <td>0.4051</td>
+  <td>0.3977</td>
+  <td>—</td>
+  <td>—</td>
+</tr>
+
+<tr>
+  <td>Longformer (Baseline 2)</td>
+  <td>CPT only</td>
+  <td>—</td>
+  <td>—</td>
+  <td>0.5612</td>
+  <td>0.4717</td>
+</tr>
+
+<tr>
+  <td>BERT + LSTM (Temporal)</td>
+  <td>ICD only</td>
+  <td>0.5018</td>
+  <td>0.4712</td>
+  <td>—</td>
+  <td>—</td>
+</tr>
+
+<tr>
+  <td>BERT + LSTM (Temporal)</td>
+  <td>CPT only</td>
+  <td>—</td>
+  <td>—</td>
+  <td>0.5018</td>
+  <td>0.4924</td>
+</tr>
+
+<tr>
+  <td><b>BERT + LSTM (Temporal)</b></td>
+  <td><b>ICD + CPT</b></td>
+  <td><b>0.5018</b></td>
+  <td><b>0.4712</b></td>
+  <td><b>0.6024</b></td>
+  <td><b>0.4924</b></td>
+</tr>
+</table>
+
+<h4>Analysis</h4>
+
+<p>
+For ICD-only prediction, Baseline 1 (BioClinicalBERT) achieved a Micro-F1 score of 0.4342 and 
+Precision@5 of 0.4229, while Baseline 2 (Longformer) performed worse with a Micro-F1 of 0.4051 
+and Precision@5 of 0.3977. In contrast, the temporal model (BioClinicalBERT + LSTM) significantly 
+improves performance, achieving a Micro-F1 of 0.5018 and Precision@5 of 0.4712.
 </p>
 
 <p>
-For ICD-only prediction, Baseline 1 (BioClinicalBERT) achieved a Micro-F1 score of 0.4342 and
-Precision@5 of 0.4229, while Baseline 2 (Longformer-based) achieved lower performance with a
-Micro-F1 of 0.4051 and Precision@5 of 0.3977. In contrast, our temporal model (BioClinicalBERT + LSTM)
-significantly improved performance, achieving a Micro-F1 score of 0.5018 and Precision@5 of 0.4712.
+For CPT-only prediction, Baseline 1 achieved a Micro-F1 of 0.5373 and Baseline 2 achieved 0.5612. 
+The temporal model shows competitive performance with a Micro-F1 of 0.5018 but achieves the highest 
+Precision@5 (0.4924), indicating better ranking quality of predicted codes.
 </p>
 
 <p>
-For CPT-only prediction, Baseline 1 achieved a Micro-F1 score of 0.5373 and Precision@5 of 0.4643,
-while Baseline 2 achieved a Micro-F1 of 0.5612 and Precision@5 of 0.4717. The temporal model achieved
-a Micro-F1 score of 0.5018 and Precision@5 of 0.4924. These results indicate that CPT prediction is
-generally more stable and consistent than ICD prediction, likely due to stronger procedural patterns
-in clinical notes.
+In the joint ICD+CPT setting, the temporal model achieves 0.5018 Micro-F1 for ICD and 0.6024 for CPT. 
+This demonstrates that a unified temporal framework can effectively handle both diagnosis and procedure 
+prediction within a single model.
 </p>
 
 <p>
-In the joint ICD+CPT prediction setting, the temporal model achieved a Micro-F1 score of 0.5018
-for ICD and 0.6024 for CPT, with Precision@5 values of 0.4712 and 0.4924, respectively. This
-demonstrates that a unified temporal framework can effectively handle both diagnosis and procedure
-prediction tasks within a single model.
-</p>
-
-<p>
-Overall, these results highlight several important findings. First, temporal multi-note modeling
-consistently outperforms single-note baselines for ICD prediction. Second, joint ICD and CPT
-prediction is feasible within a unified framework. Third, CPT codes are predicted more consistently
-than ICD codes, suggesting that procedural information is easier to capture from clinical notes.
-Finally, incorporating multiple notes per admission improves top-ranked prediction accuracy,
-confirming the importance of modeling clinical progression over time.
+Overall, these results highlight that temporal multi-note modeling consistently improves ICD prediction, 
+while CPT prediction remains more stable due to structured procedural patterns. Additionally, modeling 
+multiple notes over time improves top-ranked prediction accuracy, emphasizing the importance of capturing 
+clinical progression.
 </p>
 
 <h3>Individual Contributions</h3>
