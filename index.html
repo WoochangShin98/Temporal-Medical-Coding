@@ -199,6 +199,13 @@
       we collected 101,655 admissions and split them into Train / Validation / Test as 71,158 / 15,248 / 15,249.
     </p>
 
+    <h3>Challenges</h3>
+    
+    <p>
+    One challenge is the limited number of clinical notes per admission due to computational constraints.
+    Another challenge is capturing long-range dependencies across notes, which may not be fully handled by LSTM.
+    </p>
+    
     <hr>
 
 <!-- ── Results ───────────────────────────────────────────── -->
@@ -316,6 +323,11 @@ CPT prediction is more consistent than ICD, likely due to stronger procedural pa
 In addition, increasing the number of notes improves top-ranked prediction accuracy, highlighting the
 importance of modeling temporal progression.
 </p>
+
+<p>
+The model struggles with rare ICD codes due to label imbalance. In addition, some long-term dependencies
+across distant clinical notes are not fully captured by the LSTM model.
+</p>
 <hr>
 <!-- ── Conclusion ────────────────────────────────────────── -->
 <h2 id="conclusion">Limitation and Future Work</h2>
@@ -337,6 +349,10 @@ Future work will focus on incorporating structured clinical data, improving rare
 sampling strategies, and exploring transformer-based temporal models to better capture long-term dependencies.
 </p>
 
+<p>
+Our code is publicly available, which improves reproducibility. However, the use of clinical data may introduce
+bias, and care must be taken when applying such models in real-world healthcare settings.
+</p>    
 <hr>
 
 <h3>Individual Contributions</h3>
