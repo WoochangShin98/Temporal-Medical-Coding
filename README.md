@@ -138,14 +138,14 @@ By moving beyond static note-level approaches, our framework provides a more rea
 ## Contributions
 
 - **Woochang Shin**
-  - Initial and final development of Baseline Model 2 (Longformer) for clinical code prediction
-  - Initial and final development of the temporal model for joint ICD and CPT prediction
+  - **Model 1**: Initial and final development of Baseline Model 2 (Longformer) for clinical code prediction
+  - **Model 3**: Initial and final development of the temporal model for joint ICD and CPT prediction
   - Project website development and maintenance
   - Project poster, documentation
 
 - **Jisun Kim**
-  - Initial and final development of Baseline Model 1 (BioClinicalBERT) note-level model
-  - Initial and final development of the temporal model for joint ICD and CPT prediction
+  - **Model 2**: Initial and final development of Baseline Model 1 (BioClinicalBERT) note-level model
+  - **Model 3**:Initial and final development of the temporal model for joint ICD and CPT prediction
   - Project website maintenance and updates
   - Project report, documentation
 
