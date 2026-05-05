@@ -220,9 +220,11 @@ while capturing sequential dependencies across clinical notes.
 <tr>
   <th style="text-align: center;"><strong>Model</strong></th>
   <th style="text-align: center;"><strong>ICD Micro F1</strong></th>
-  <th style="text-align: center;"><strong>ICD P@5</strong></th>
+  <th style="text-align: center;"><strong>ICD Macro F1</strong></th>
   <th style="text-align: center;"><strong>CPT Micro F1</strong></th>
-  <th style="text-align: center;"><strong>CPT P@5</strong></th>
+  <th style="text-align: center;"><strong>CPT Macro F1</strong></th>
+  <th style="text-align: center;"><strong>P@5 (ICD)</strong></th>
+  <th style="text-align: center;"><strong>P@5 (CPT)</strong></th>
   <th style="text-align: center;"><strong>Joint Score</strong></th>
 </tr>
 </thead>
@@ -230,27 +232,33 @@ while capturing sequential dependencies across clinical notes.
 <tbody>
 <tr>
   <td style="text-align: center;">Baseline<br>(BioClinicalBERT)</td>
-  <td style="text-align: center;">0.3966</td>
-  <td style="text-align: center;">0.4000</td>
-  <td style="text-align: center;">0.5295</td>
-  <td style="text-align: center;">0.4628</td>
+  <td style="text-align: center;">0.4506</td>
+  <td style="text-align: center;">0.3130</td>
+  <td style="text-align: center;">0.5379</td>
+  <td style="text-align: center;">0.1751</td>
+  <td style="text-align: center;">0.4314</td>
+  <td style="text-align: center;">0.4775</td>
   <td style="text-align: center;">0.4631</td>
 </tr>
 
 <tr>
-  <td style="text-align: center;">Longformer-based</td>
+  <td style="text-align: center;">Longformer</td>
   <td style="text-align: center;">0.5990</td>
-  <td style="text-align: center;">0.5593</td>
+  <td style="text-align: center;">0.4490</td>
   <td style="text-align: center;">0.5905</td>
+  <td style="text-align: center;">0.3017</td>
+  <td style="text-align: center;">0.5593</td>
   <td style="text-align: center;">0.4968</td>
   <td style="text-align: center;">0.5948</td>
 </tr>
 
 <tr style="background-color: #f0f7ff;">
-  <td style="text-align: center;"><strong>Temporal (BERT+LSTM)</strong></td>
+  <td style="text-align: center;"><strong>Temporal (BERT + LSTM)</strong></td>
   <td style="text-align: center;"><strong>0.4392</strong></td>
-  <td style="text-align: center;"><strong>0.4147</strong></td>
+  <td style="text-align: center;"><strong>0.3704</strong></td>
   <td style="text-align: center;"><strong>0.5278</strong></td>
+  <td style="text-align: center;"><strong>0.3019</strong></td>
+  <td style="text-align: center;"><strong>0.4147</strong></td>
   <td style="text-align: center;"><strong>0.4310</strong></td>
   <td style="text-align: center;"><strong>0.4835</strong></td>
 </tr>
