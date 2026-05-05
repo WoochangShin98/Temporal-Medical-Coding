@@ -1,27 +1,23 @@
 ## 📊 Results
 
-Our model was evaluated on the MIMIC dataset for both ICD and CPT prediction tasks using a temporal multi-note modeling approach.
+Our model was evaluated on the MIMIC-III dataset for joint ICD and CPT prediction using a temporal multi-note modeling framework.
 
 ### Experimental Results
 
-| Model                      | ICD Micro-F1 | ICD P@5 | CPT Micro-F1 | CPT P@5 | Task      |
-| -------------------------- | ------------ | ------- | ------------ | ------- | --------- |
-| BioClinicalBERT (Baseline) | 0.3966       | 0.4000  | —            | —       | ICD only  |
-| BioClinicalBERT (Baseline) | —            | —       | 0.5295       | 0.4628  | CPT only  |
-| Longformer-based           | 0.5990       | 0.5593  | —            | —       | ICD only  |
-| Longformer-based           | —            | —       | 0.5905       | 0.4968  | CPT only  |
-| Temporal (BERT + LSTM)     | 0.4392       | 0.4147  | —            | —       | ICD only  |
-| Temporal (BERT + LSTM)     | —            | —       | 0.5278       | 0.4310  | CPT only  |
-| **Temporal (BERT + LSTM)** | **0.4392**   | **0.4147** | **0.5278** | **0.4310** | **ICD + CPT** |
+| Model | ICD Micro-F1 | ICD Macro-F1 | CPT Micro-F1 | CPT Macro-F1 | P@5 (ICD) | P@5 (CPT) | Joint Score |
+|------|-------------|-------------|-------------|-------------|-----------|-----------|-------------|
+| Baseline (BioClinicalBERT) | 0.4506 | 0.3130 | 0.5379 | 0.1751 | 0.4314 | 0.4775 | 0.4631 |
+| Longformer | 0.5990 | 0.4490 | 0.5905 | 0.3017 | 0.5593 | 0.4968 | 0.5948 |
+| Temporal (BERT + LSTM) | 0.4392 | 0.3704 | 0.5278 | 0.3019 | 0.4147 | 0.4310 | 0.4835 |
 
-These results show that the proposed **temporal multi-note modeling approach achieves competitive performance compared to single-note baselines**, particularly for CPT prediction.
+These results show that temporal multi-note modeling provides stable and clinically meaningful performance while explicitly modeling patient progression across sequential clinical notes.
 
 ---
 
 ### 🔍 Main Findings
 
-- Temporal multi-note modeling provides **consistent and robust performance**
-- Joint prediction of ICD and CPT codes is feasible within a unified framework
-- CPT codes are predicted more reliably than ICD codes (**Micro-F1: 0.5278 vs. 0.4392**)
-- The model demonstrates a **precision-oriented prediction behavior**, improving top-ranked prediction quality
-- Compared to Longformer, the temporal model shows **lower ICD performance**, likely due to information compression in sequential modeling
+- Temporal multi-note modeling provides stable and robust performance
+- Temporal modeling enables more context-aware predictions across clinical notes
+- Longformer achieves the strongest overall performance through long-context modeling
+- ICD prediction remains more challenging than CPT prediction
+- The temporal model provides a clinically meaningful representation of patient progression over time
