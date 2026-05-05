@@ -192,7 +192,7 @@
       In our temporal model, we explicitly include temporal reasoning by processing multiple documents in time
       order within the same <code>hadm_id</code>. Radiology notes and discharge summaries are sorted by
       <code>charttime</code>, and up to five notes are used as one sequence for each admission. Each document is
-      first encoded with BioClinicalBERT (Alsentzer et al., 2019), and then a two-layer unidirectional LSTM
+      first encoded with BioClinicalBERT (Alsentzer et al., 2019), and then a single-layer bidirectional LSTM
       (Hochreiter and Schmidhuber, 1997) models the patient's state changes across time. Using this structure,
       we collected 101,655 admissions and split them into Train / Validation / Test as 71,158 / 15,248 / 15,249.
     </p>
@@ -266,7 +266,7 @@ while capturing sequential dependencies across clinical notes.
 <h3>Main Findings</h3>
 
 <ul>
-  <li>Temporal multi-note modeling achieves <strong>competitive performance compared to baseline models</strong>.</li>
+  <li>Temporal multi-note modeling achieves <strong>stable and reliable performance compared to baseline models</strong>.</li>
   <li>The model shows <strong>higher recall for CPT prediction</strong>, indicating broader coverage of procedure codes.</li>
   <li>ICD prediction remains more challenging than CPT (<strong>0.4392 vs. 0.5278</strong>).</li>
   <li>The temporal model demonstrates a <strong>balanced precision–recall trade-off</strong>.</li>
@@ -277,7 +277,7 @@ while capturing sequential dependencies across clinical notes.
 
 <p>
 The temporal model captures sequential dependencies across clinical notes and enables joint prediction of ICD and CPT codes.
-While the model achieves competitive overall performance, ICD prediction remains more challenging than CPT due to the complexity
+While the model achieves stable overall performance, ICD prediction remains more challenging than CPT due to the complexity
 and variability of diagnostic patterns.
 </p>
 
