@@ -19,7 +19,7 @@ To access the full dataset:
 
 1. Complete PhysioNet credentialing
 2. Request access to MIMIC-III
-3. Download from: https://physionet.org/content/mimiciv/
+3. Download from: [https://physionet.org/content/mimiciv/](https://physionet.org/content/mimiciii/1.4/)
 
 ## Tables Used
 
