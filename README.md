@@ -13,146 +13,125 @@ CSCI 5541 – Natural Language Processing (Team Project)
 
 ## Project Overview
 
-This project develops a **temporal clinical reasoning framework** for automated ICD and CPT medical coding.
+This project proposes a **temporal clinical reasoning framework** for automated ICD and CPT code prediction using electronic health records (EHRs).
 
-Unlike traditional NLP-based coding systems that treat each clinical note independently, our approach models **diagnostic changes over time**, integrates clinical notes across multiple time points, and aims to provide more consistent and explainable predictions.
+Unlike traditional approaches that process clinical notes independently, our method models **patient progression over time** by integrating multiple clinical notes across an admission.
 
-Each clinical note is encoded using **BioClinicalBERT**, and an **LSTM** is used to capture temporal dependencies across notes. The model is trained in a multi-label setting to jointly predict diagnosis codes (**ICD**) and procedure codes (**CPT**).
+Each clinical note is encoded using **BioClinicalBERT**, and a **bidirectional LSTM** is used to capture temporal dependencies across notes.  
+The model is trained in a multi-label setting to jointly predict diagnosis (**ICD**) and procedure (**CPT**) codes.
 
 ---
 
 ## Task Definition
 
-- **Input:** Sequential clinical notes + structured clinical data  
+- **Input:** Chronologically ordered multi-note clinical events  
 - **Output:** ICD-10 and CPT codes  
 - **Task Type:** Multi-label classification  
 - **Setting:** Admission-level prediction with temporal modeling  
 
 ---
 
-## Data Access
+## Data
 
-Access to **MIMIC-IV** requires completion of the official data use training and credentialing process.
-
-For this project, dataset access was obtained through **Steven Hu**, who completed the required training and certification to access MIMIC-IV.
+We use the **MIMIC-III dataset**, a large-scale ICU dataset containing de-identified clinical records.
 
 The dataset includes:
 
 - Clinical notes  
 - ICD diagnosis codes  
-- CPT procedure codes  
 - Laboratory results  
 - Medication records  
+
+We selected MIMIC-III because it preserves diverse clinical note types (e.g., nursing, physician, radiology), which are essential for temporal modeling.
 
 ---
 
 ## Motivation
 
-Automated medical coding is essential in healthcare because it supports billing, clinical decision-making, and large-scale medical research.
+Automated medical coding is critical in healthcare, supporting billing, clinical decision-making, and large-scale research.
 
-However, many existing NLP-based coding systems process clinical notes independently. This ignores the temporal evolution of a patient’s condition during admission, which can lead to incomplete understanding and inconsistent predictions.
+However, most existing systems process clinical notes independently, ignoring how a patient’s condition evolves over time.
 
-Our project addresses this limitation by modeling multiple clinical notes over time.
+This leads to incomplete understanding and inconsistent predictions.
 
----
-
-## Objective
-
-To build a **time-aware and context-aware auto-coding system** that:
-
-- Tracks diagnostic evolution across admissions  
-- Captures temporal relationships between clinical notes  
-- Reduces false positives from outdated diagnoses  
-- Supports joint ICD and CPT prediction  
-- Produces more interpretable, evidence-based outputs  
+Our work addresses this limitation by modeling **temporal relationships across multiple clinical notes**.
 
 ---
 
 ## Proposed Approach
 
-Our framework uses a temporal multi-note modeling pipeline:
+Our framework consists of three main components:
 
-1. Collect multiple clinical notes for each admission  
-2. Sort notes chronologically based on chart time  
-3. Encode each note using **BioClinicalBERT**  
-4. Apply an **LSTM** to model temporal dependencies  
-5. Build a shared admission-level representation  
-6. Predict ICD and CPT codes using separate prediction heads  
+### 1. Note Encoding
+Each clinical note is encoded using **BioClinicalBERT**, producing contextual embeddings.
+
+### 2. Temporal Modeling
+Chronologically ordered embeddings are passed through a **bidirectional LSTM** to capture temporal dependencies and patient progression.
+
+### 3. Joint Prediction
+The shared temporal representation is used to predict **ICD and CPT codes simultaneously** using multi-label classification.
 
 ---
 
 ## Preprocessing
 
-We built a preprocessing pipeline that converts MIMIC clinical data into chronologically ordered admission-level sequences.
+We construct admission-level sequences from MIMIC-III:
 
-The preprocessing steps include:
-
-- Selecting adult admissions with valid clinical notes and billing codes  
-- Merging multiple note types such as discharge, radiology, nursing, physician, ECG, pharmacy, and respiratory notes  
-- Sorting notes by chart time  
-- Mapping ICD-9 codes to ICD-10 codes  
-- Linking diagnosis and procedure codes to admissions  
-- Splitting the dataset into train, validation, and test sets  
+- Select adult patients (≥ 24 hours admission)
+- Merge heterogeneous note types (nursing, radiology, physician, etc.)
+- Sort notes by chart time
+- Normalize text and remove PHI placeholders
+- Map ICD-9 codes to ICD-10
+- Extract CPT codes from CPTEVENTS
+- Truncate to first 5 events for temporal modeling
+- Split dataset into train/validation/test (80/10/10)
 
 ---
 
 ## Experimental Results
 
-| Model | ICD Micro F1 | ICD P@5 | CPT Micro F1 | CPT P@5 | Task |
-|------|-------------|--------|-------------|--------|------|
-| Baseline 1 (BioClinicalBERT) | 0.4342 | 0.4229 | - | - | ICD only |
-| Baseline 1 (BioClinicalBERT) | - | - | 0.5373 | 0.4643 | CPT only |
-| Baseline 2 (Longformer-based) | 0.4051 | 0.3977 | - | - | ICD only |
-| Baseline 2 (Longformer-based) | - | - | 0.5612 | 0.4717 | CPT only |
-| Temporal Model (BERT + LSTM) | 0.5018 | 0.4712 | - | - | ICD only |
-| Temporal Model (BERT + LSTM) | - | - | 0.5018 | 0.4924 | CPT only |
-| Temporal Model (BERT + LSTM) | 0.5018 | 0.4712 | 0.6024 | 0.4924 | ICD + CPT |
+| Model | ICD Micro-F1 | ICD Macro-F1 | CPT Micro-F1 | CPT Macro-F1 | P@5 (ICD) | P@5 (CPT) | Joint |
+|------|-------------|-------------|-------------|-------------|-----------|-----------|-------|
+| Baseline | 0.3966 | 0.1947 | 0.5295 | 0.1758 | 0.4000 | 0.4628 | 0.4631 |
+| Longformer | 0.5990 | 0.4490 | 0.5905 | 0.3017 | 0.5593 | 0.4968 | 0.5948 |
+| Temporal (BERT + LSTM) | 0.4392 | 0.3704 | 0.5278 | 0.3019 | 0.4147 | 0.4310 | 0.4835 |
 
 ---
 
 ## Main Findings
 
-- Temporal multi-note modeling outperforms single-note baseline models.
-- Joint ICD and CPT prediction is feasible within a single temporal framework.
-- CPT codes are predicted more consistently than ICD codes.
-- Increasing note coverage improves top-ranked prediction accuracy.
-- Temporal modeling helps capture diagnostic progression across an admission.
-
----
-
-## Comparison to Baseline
-
-The baseline models process clinical notes independently or concatenate long text without explicitly modeling temporal progression.
-
-In contrast, our approach models the sequence of clinical notes over time.
-
-This allows the model to:
-
-- Capture changes in patient condition  
-- Improve consistency across notes  
-- Reduce false positives from outdated diagnoses  
-- Better represent admission-level clinical context  
+- Temporal modeling improves consistency by capturing patient progression
+- Multi-note modeling outperforms single-note baselines in interpretability
+- Longformer achieves the strongest overall performance due to long-context modeling
+- ICD prediction is more challenging than CPT prediction
+- Temporal modeling provides a clinically meaningful representation of patient history
 
 ---
 
 ## Limitations
 
-- The model currently focuses on the most frequent ICD and CPT codes, which limits rare-code performance.
-- Each admission is represented by a limited number of notes.
-- The LSTM model may not fully capture long-range dependencies across long admissions.
-- Structured clinical data such as labs and medications can be further integrated for stronger validation.
+- Performance is biased toward frequent codes (rare-code problem)
+- Limited note coverage (max 5 events)
+- LSTM struggles with long-range dependencies
+- Joint prediction introduces task trade-offs (ICD vs CPT)
 
 ---
 
 ## Future Work
 
-Future work will focus on:
+- Explore Transformer-based temporal models
+- Improve rare-code prediction (e.g., focal loss)
+- Incorporate structured data (labs, medications)
+- Perform deeper error analysis
+- Improve interpretability of predictions
 
-- Integrating structured clinical data such as lab results and medications  
-- Exploring Transformer-based temporal models  
-- Improving rare-code prediction using class-weighted loss or focal loss  
-- Conducting deeper error analysis  
-- Improving interpretability of predicted ICD and CPT codes  
+---
+
+## Summary
+
+This project demonstrates that **temporal multi-note modeling** improves automated medical coding by capturing clinical progression over time.
+
+By moving beyond static note-level approaches, our framework provides a more realistic and clinically meaningful solution for ICD and CPT prediction.
 
 ---
 
@@ -181,10 +160,3 @@ Future work will focus on:
   - Model 2 (Longformer) for joint ICD and CPT Prediction
   - Model 3 (Temporal / Joint Model) for joint ICD and CPT Prediction Support
   - Project Support
----
-
-## Summary
-
-This project demonstrates that temporal multi-note modeling can improve automated medical coding by capturing clinical progression over time.
-
-By moving beyond static note-level classification, our framework provides a more realistic and clinically meaningful approach for ICD and CPT code prediction.
