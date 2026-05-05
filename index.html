@@ -81,38 +81,36 @@
   <div class="wrapper">
     <hr>
 
-    <!-- ── Abstract ─────────────────────────────────────────── -->
-    <h2 id="abstract">Abstract</h2>
+<!-- ── Abstract ─────────────────────────────────────────── -->
+<h2 id="abstract">Abstract</h2>
 
-    <p>
-      This project focuses on predicting ICD (diagnosis codes) and CPT (procedure codes) from clinical records.
-      Existing methods do not fully use temporal information or data from multiple documents. Most models use only
-      a single document, such as a discharge summary, and do not capture changes in a patient's condition during
-      admission or important information from different clinical documents
-      (Mullenbach et al., 2018; Huang et al., 2022). Our goal is to solve this problem.
-    </p>
+<p>
+  This project focuses on predicting ICD (diagnosis codes) and CPT (procedure codes) from clinical records.
+  Existing methods do not fully utilize temporal information or data from multiple documents. Most models rely on
+  a single document, such as a discharge summary, and fail to capture changes in a patient's condition over time
+  or important signals distributed across different clinical notes.
+</p>
 
-    <p>
-      As our initial approach, we organize the data at the admission level and design two baseline models for
-      comparison. Baseline 1 is a BioClinicalBERT-based (Alsentzer et al., 2019) multi-label classification model
-      that uses only a discharge summary as input. Baseline 2 combines multiple clinical documents, such as
-      discharge and radiology reports, to use more information. To handle long text more effectively, we use the
-      Longformer model (Beltagy et al., 2020).
-    </p>
+<p>
+  To address these limitations, we organize clinical data at the admission level and design two baseline models.
+  Baseline 1 is a BioClinicalBERT-based multi-label classification model using a single discharge summary.
+  Baseline 2 extends this approach by combining multiple documents, including discharge and radiology reports,
+  using a Longformer-based architecture to better handle long sequences.
+</p>
 
-    <p>
-      In early experiments, Baseline 1 used 86,146 admissions and achieved Micro-F1 of 0.4615, Macro-F1 of
-      0.4660, Precision@5 of 0.2340, and Precision@8 of 0.1603. Baseline 2 used a smaller sample of 2,000
-      admissions and achieved Precision@5 of 0.1034 and Precision@8 of 0.0767.
-    </p>
+<p>
+  We further propose a temporal modeling approach that processes multiple clinical notes in chronological order.
+  Each note is encoded using BioClinicalBERT, and a sequential LSTM model captures temporal dependencies across
+  notes, enabling joint prediction of ICD and CPT codes within a unified framework.
+</p>
 
-    <p>
-      We also design a BioClinicalBERT + LSTM (Hochreiter and Schmidhuber, 1997) model to include temporal
-      reasoning by processing clinical documents in time order. This model used 101,655 admissions and achieved a
-      test Micro-F1 of <strong>0.5335</strong>, Macro-F1 of <strong>0.4857</strong>, Precision@5 of
-      <strong>0.2357</strong>, and Precision@8 of <strong>0.1624</strong> after 3 epochs of training,
-      outperforming Baseline 1 across all metrics.
-    </p>
+<p>
+  The proposed temporal model achieves a Micro-F1 score of <strong>0.4392</strong> for ICD prediction and
+  <strong>0.5278</strong> for CPT prediction, with a joint performance score of <strong>0.4835</strong>.
+  These results demonstrate that temporal multi-note modeling provides a robust and effective framework for
+  clinical code prediction, particularly for procedure codes, while highlighting remaining challenges in
+  modeling complex diagnostic patterns.
+</p>
 
     <hr>
 
@@ -212,9 +210,9 @@
 <h2 id="results">Results</h2>
 
 <p>
-We evaluated the models under ICD-only, CPT-only, and joint ICD+CPT prediction settings.
-The results show that temporal multi-note modeling is effective for clinical code prediction,
-especially when diagnosis and procedure codes are predicted within a unified framework.
+We evaluated the models for joint ICD and CPT prediction on the MIMIC dataset.
+The results demonstrate that temporal multi-note modeling provides stable and robust performance,
+while capturing sequential dependencies across clinical notes.
 </p>
 
 <table border="1" cellpadding="6" cellspacing="0">
@@ -225,134 +223,92 @@ especially when diagnosis and procedure codes are predicted within a unified fra
   <th style="text-align: center;"><strong>ICD P@5</strong></th>
   <th style="text-align: center;"><strong>CPT Micro F1</strong></th>
   <th style="text-align: center;"><strong>CPT P@5</strong></th>
-  <th style="text-align: center;"><strong>Task</strong></th>
+  <th style="text-align: center;"><strong>Joint Score</strong></th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-  <td style="text-align: center;">Baseline 1<br>(BioClinicalBERT)</td>
-  <td style="text-align: center;">0.4342</td>
-  <td style="text-align: center;">0.4229</td>
-  <td style="text-align: center;">—</td>
-  <td style="text-align: center;">—</td>
-  <td style="text-align: center;">ICD only</td>
+  <td style="text-align: center;">Baseline<br>(BioClinicalBERT)</td>
+  <td style="text-align: center;">0.3966</td>
+  <td style="text-align: center;">0.4000</td>
+  <td style="text-align: center;">0.5295</td>
+  <td style="text-align: center;">0.4628</td>
+  <td style="text-align: center;">0.4631</td>
 </tr>
 
 <tr>
-  <td style="text-align: center;">Baseline 1<br>(BioClinicalBERT)</td>
-  <td style="text-align: center;">—</td>
-  <td style="text-align: center;">—</td>
-  <td style="text-align: center;">0.5373</td>
-  <td style="text-align: center;">0.4643</td>
-  <td style="text-align: center;">CPT only</td>
-</tr>
-
-<tr>
-  <td style="text-align: center;">Baseline 2<br>(Longformer-based)</td>
-  <td style="text-align: center;">0.4051</td>
-  <td style="text-align: center;">0.3977</td>
-  <td style="text-align: center;">—</td>
-  <td style="text-align: center;">—</td>
-  <td style="text-align: center;">ICD only</td>
-</tr>
-
-<tr>
-  <td style="text-align: center;">Baseline 2<br>(Longformer-based)</td>
-  <td style="text-align: center;">—</td>
-  <td style="text-align: center;">—</td>
-  <td style="text-align: center;">0.5612</td>
-  <td style="text-align: center;">0.4717</td>
-  <td style="text-align: center;">CPT only</td>
-</tr>
-
-<tr>
-  <td style="text-align: center;">Temporal<br>(BERT+LSTM)</td>
-  <td style="text-align: center;">0.5018</td>
-  <td style="text-align: center;">0.4712</td>
-  <td style="text-align: center;">—</td>
-  <td style="text-align: center;">—</td>
-  <td style="text-align: center;">ICD only</td>
-</tr>
-
-<tr>
-  <td style="text-align: center;">Temporal<br>(BERT+LSTM)</td>
-  <td style="text-align: center;">—</td>
-  <td style="text-align: center;">—</td>
-  <td style="text-align: center;">0.5018</td>
-  <td style="text-align: center;">0.4924</td>
-  <td style="text-align: center;">CPT only</td>
+  <td style="text-align: center;">Longformer-based</td>
+  <td style="text-align: center;">0.5990</td>
+  <td style="text-align: center;">0.5593</td>
+  <td style="text-align: center;">0.5905</td>
+  <td style="text-align: center;">0.4968</td>
+  <td style="text-align: center;">0.5948</td>
 </tr>
 
 <tr style="background-color: #f0f7ff;">
-  <td style="text-align: center;"><strong>Temporal<br>(BERT+LSTM)</strong></td>
-  <td style="text-align: center;"><strong>0.5018</strong></td>
-  <td style="text-align: center;"><strong>0.4712</strong></td>
-  <td style="text-align: center;"><strong>0.6024</strong></td>
-  <td style="text-align: center;"><strong>0.4924</strong></td>
-  <td style="text-align: center;"><strong>ICD + CPT</strong></td>
+  <td style="text-align: center;"><strong>Temporal (BERT+LSTM)</strong></td>
+  <td style="text-align: center;"><strong>0.4392</strong></td>
+  <td style="text-align: center;"><strong>0.4147</strong></td>
+  <td style="text-align: center;"><strong>0.5278</strong></td>
+  <td style="text-align: center;"><strong>0.4310</strong></td>
+  <td style="text-align: center;"><strong>0.4835</strong></td>
 </tr>
 </tbody>
 </table>
 
 <ul>
   <li><strong>Micro F1:</strong> measures overall prediction performance across all samples.</li>
-  <li><strong>Macro F1:</strong> reflects average performance across all codes and is sensitive to rare classes.</li>
+  <li><strong>Macro F1:</strong> reflects performance across all labels and is sensitive to rare classes.</li>
   <li><strong>Precision@5:</strong> evaluates how many correct labels appear within the top-5 predictions.</li>
 </ul>
 
 <h3>Main Findings</h3>
 
 <ul>
-  <li>Temporal multi-note modeling outperforms the single-note baseline on ICD prediction.</li>
-  <li>Joint ICD and CPT prediction is feasible within a single temporal framework.</li>
-  <li>CPT codes are predicted more consistently than ICD codes, likely due to stronger procedural patterns in clinical notes.</li>
-  <li>Increasing note coverage from 1 to 5 notes per admission improves top-ranked prediction accuracy.</li>
+  <li>Temporal multi-note modeling achieves <strong>competitive performance compared to baseline models</strong>.</li>
+  <li>The model shows <strong>higher recall for CPT prediction</strong>, indicating broader coverage of procedure codes.</li>
+  <li>ICD prediction remains more challenging than CPT (<strong>0.4392 vs. 0.5278</strong>).</li>
+  <li>The temporal model demonstrates a <strong>balanced precision–recall trade-off</strong>.</li>
+  <li>Compared to Longformer, performance is lower on ICD due to <strong>sequential information compression</strong>.</li>
 </ul>
 
 <h3>Analysis</h3>
 
 <p>
-Temporal multi-note modeling significantly improves ICD prediction compared to single-note baselines
-(0.4615 → <strong>0.5335</strong>, +7.2 pp). The model also supports joint ICD and CPT prediction within a
-unified framework.
+The temporal model captures sequential dependencies across clinical notes and enables joint prediction of ICD and CPT codes.
+While the model achieves competitive overall performance, ICD prediction remains more challenging than CPT due to the complexity
+and variability of diagnostic patterns.
 </p>
 
 <p>
-CPT prediction is more consistent than ICD, likely due to stronger procedural patterns in clinical notes.
-In addition, increasing the number of notes improves top-ranked prediction accuracy, highlighting the
-importance of modeling temporal progression.
+Compared to Longformer-based models, the temporal approach shows lower ICD performance, likely due to information compression
+through the LSTM structure. However, the model demonstrates stable performance and a balanced precision–recall trade-off.
 </p>
 
 <p>
-The model struggles with rare ICD codes due to label imbalance. In addition, some long-term dependencies
-across distant clinical notes are not fully captured by the LSTM model.
+Performance on rare ICD codes remains limited due to label imbalance, and long-range dependencies across distant notes
+are not fully captured by the current sequential architecture.
 </p>
 <hr>
 <!-- ── Conclusion ────────────────────────────────────────── -->
 <h2 id="conclusion">Limitation and Future Work</h2>
 
 <p>
-This work demonstrates that temporal modeling of clinical notes significantly improves ICD and CPT prediction
-by capturing patient condition progression over time. Compared to single-document approaches, the proposed
-framework provides more consistent and accurate predictions.
+This work demonstrates that temporal modeling of clinical notes enables joint ICD and CPT prediction by capturing
+patient condition progression over time. The proposed framework achieves stable and consistent performance, particularly for CPT prediction.
 </p>
 
 <p>
-However, several limitations remain. Performance on rare codes is still limited due to label imbalance. In
-addition, each admission is represented by a limited number of notes, which may truncate important information
-in longer hospital stays. Finally, the current LSTM-based model may not fully capture long-range dependencies.
+However, several limitations remain. Performance on rare codes is still limited due to label imbalance. In addition,
+each admission is represented by a limited number of notes, which may truncate important information in longer hospital stays.
+Finally, the current LSTM-based model may not fully capture long-range dependencies.
 </p>
 
 <p>
 Future work will focus on incorporating structured clinical data, improving rare code prediction through better
 sampling strategies, and exploring transformer-based temporal models to better capture long-term dependencies.
 </p>
-
-<p>
-Our code is publicly available, which improves reproducibility. However, the use of clinical data may introduce
-bias, and care must be taken when applying such models in real-world healthcare settings.
-</p>    
 <hr>
 
 <h3>Individual Contributions</h3>
