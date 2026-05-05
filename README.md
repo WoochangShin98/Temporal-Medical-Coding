@@ -35,6 +35,8 @@ The model is trained in a multi-label setting to jointly predict diagnosis (**IC
 
 We use the **MIMIC-III dataset**, a large-scale ICU dataset containing de-identified clinical records.
 
+Access to MIMIC-III requires completion of the official data use training and credentialing process.
+
 The dataset includes:
 
 - Clinical notes  
