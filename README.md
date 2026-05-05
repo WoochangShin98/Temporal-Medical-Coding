@@ -92,9 +92,9 @@ We construct admission-level sequences from MIMIC-III:
 
 ## Experimental Results
 
-| Model | ICD Micro-F1 | ICD Macro-F1 | CPT Micro-F1 | CPT Macro-F1 | P@5 (ICD) | P@5 (CPT) | Joint |
-|------|-------------|-------------|-------------|-------------|-----------|-----------|-------|
-| Baseline | 0.3966 | 0.1947 | 0.5295 | 0.1758 | 0.4000 | 0.4628 | 0.4631 |
+| Model | ICD Micro-F1 | ICD Macro-F1 | CPT Micro-F1 | CPT Macro-F1 | P@5 (ICD) | P@5 (CPT) | Joint Score |
+|------|-------------|-------------|-------------|-------------|-----------|-----------|-------------|
+| Baseline | 0.4506 | 0.3130 | 0.5379 | 0.1751 | 0.4314 | 0.4775 | 0.4631 |
 | Longformer | 0.5990 | 0.4490 | 0.5905 | 0.3017 | 0.5593 | 0.4968 | 0.5948 |
 | Temporal (BERT + LSTM) | 0.4392 | 0.3704 | 0.5278 | 0.3019 | 0.4147 | 0.4310 | 0.4835 |
 
