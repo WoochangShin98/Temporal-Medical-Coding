@@ -1,6 +1,6 @@
 # Dataset
 
-This project uses the MIMIC-IV dataset for clinical text and structured data.
+This project uses the MIMIC-III dataset for clinical text and structured data.
 
 Due to data usage restrictions and privacy policies, the full dataset is not included in this repository.
 
@@ -18,7 +18,7 @@ These samples contain a limited number of rows and truncated text fields.
 To access the full dataset:
 
 1. Complete PhysioNet credentialing
-2. Request access to MIMIC-IV
+2. Request access to MIMIC-III
 3. Download from: https://physionet.org/content/mimiciv/
 
 ## Tables Used
