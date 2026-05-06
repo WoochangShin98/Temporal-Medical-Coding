@@ -140,7 +140,7 @@ We construct admission-level sequences from MIMIC-III:
 ## Main Findings
 
 - Temporal modeling improves consistency by capturing patient progression
-- Multi-note modeling outperforms single-note baselines in interpretability
+- Multi-note modeling improves context-aware prediction compared to single-note baselines
 - Longformer achieves the strongest overall performance due to long-context modeling
 - ICD prediction is more challenging than CPT prediction
 - Temporal modeling provides a clinically meaningful representation of patient history
