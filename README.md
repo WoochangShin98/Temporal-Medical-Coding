@@ -15,7 +15,7 @@ CSCI 5541 – Natural Language Processing (Team Project)
 
 This project proposes a **temporal clinical reasoning framework** for automated ICD and CPT code prediction using electronic health records (EHRs).
 
-Unlike traditional approaches that process clinical notes independently, our method models **patient progression over time** by integrating multiple clinical notes across an admission.
+Unlike traditional approaches that process clinical notes independently, our method models patient progression over time by integrating multiple clinical notes across an admission.
 
 Each clinical note is encoded using **BioClinicalBERT**, and a **bidirectional LSTM** is used to capture temporal dependencies across notes.  
 The model is trained in a multi-label setting to jointly predict diagnosis (**ICD**) and procedure (**CPT**) codes.
