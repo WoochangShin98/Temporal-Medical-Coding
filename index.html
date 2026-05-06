@@ -105,11 +105,10 @@
 </p>
 
 <p>
-  The proposed temporal model achieves a Micro-F1 score of <strong>0.4392</strong> for ICD prediction and
-  <strong>0.5278</strong> for CPT prediction, with a joint performance score of <strong>0.4835</strong>.
-  These results demonstrate that temporal multi-note modeling provides a robust and effective framework for
-  clinical code prediction, particularly for procedure codes, while highlighting remaining challenges in
-  modeling complex diagnostic patterns.
+  The proposed temporal model achieves a Micro-F1 score of <strong>0.5343</strong> for ICD prediction and
+  <strong>0.6096</strong> for CPT prediction, with a joint performance score of <strong>0.5720</strong>.
+  These results demonstrate that temporal multi-note modeling improves performance compared to single-note baselines
+  while effectively capturing patient progression across sequential clinical notes.
 </p>
 
     <hr>
@@ -211,8 +210,7 @@
 
 <p>
 We evaluated the models for joint ICD and CPT prediction on the MIMIC dataset.
-The results demonstrate that temporal multi-note modeling provides stable and robust performance,
-while capturing sequential dependencies across clinical notes.
+The results demonstrate that temporal multi-note modeling improves performance while capturing sequential dependencies across clinical notes.
 </p>
 
 <table border="1" cellpadding="6" cellspacing="0">
@@ -274,24 +272,24 @@ while capturing sequential dependencies across clinical notes.
 <h3>Main Findings</h3>
 
 <ul>
-  <li>Temporal multi-note modeling achieves <strong>stable and reliable performance compared to baseline models</strong>.</li>
-  <li>The model shows <strong>higher recall for CPT prediction</strong>, indicating broader coverage of procedure codes.</li>
-  <li>ICD prediction remains more challenging than CPT (<strong>0.4392 vs. 0.5278</strong>).</li>
-  <li>The temporal model demonstrates a <strong>balanced precision–recall trade-off</strong>.</li>
-  <li>Compared to Longformer, performance is lower on ICD due to <strong>sequential information compression</strong>.</li>
+  <li>Temporal multi-note modeling substantially improves performance over baseline models.</li>
+  <li>Temporal modeling enables more context-aware prediction across sequential clinical notes.</li>
+  <li>Longformer achieves the highest overall performance through long-context modeling.</li>
+  <li>ICD prediction remains more challenging than CPT (<strong>0.5343 vs. 0.6096</strong>).</li>
+  <li>The temporal model provides an effective and clinically meaningful representation of patient progression over time.</li>
 </ul>
 
 <h3>Analysis</h3>
 
 <p>
 The temporal model captures sequential dependencies across clinical notes and enables joint prediction of ICD and CPT codes.
-While the model achieves stable overall performance, ICD prediction remains more challenging than CPT due to the complexity
+While the model achieves competitive overall performance, ICD prediction remains more challenging than CPT due to the complexity
 and variability of diagnostic patterns.
 </p>
 
 <p>
-Compared to Longformer-based models, the temporal approach shows lower ICD performance, likely due to information compression
-through the LSTM structure. However, the model demonstrates stable performance and a balanced precision–recall trade-off.
+Compared to Longformer-based models, the temporal approach shows slightly lower ICD performance, likely due to information compression
+through the LSTM structure. However, the model demonstrates competitive performance and a balanced precision–recall trade-off.
 </p>
 
 <p>
@@ -304,7 +302,7 @@ are not fully captured by the current sequential architecture.
 
 <p>
 This work demonstrates that temporal modeling of clinical notes enables joint ICD and CPT prediction by capturing
-patient condition progression over time. The proposed framework achieves stable and consistent performance, particularly for CPT prediction.
+patient condition progression over time. The proposed framework achieves effective and clinically meaningful performance, particularly for CPT prediction.
 </p>
 
 <p>
